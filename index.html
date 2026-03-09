@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VietD - Viện Đào Tạo & Phát Triển Doanh Nhân Việt Nam</title>
+    <meta name="description" content="Viện Đào Tạo và Phát Triển Doanh Nhân Việt Nam (VietD) - Điểm tựa tri thức và thịnh vượng cho cộng đồng doanh nghiệp Việt. Đào tạo AI, Mini MBA, Chuyển đổi số.">
+    <meta name="keywords" content="VietD, đào tạo doanh nhân, AI, chuyển đổi số, Mini MBA, phát triển doanh nghiệp, Việt Nam">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=VD&background=0F172A&color=B8860B&size=32&bold=true">
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#" class="nav-logo">
+            <img src="https://placehold.co/200x60/0F172A/B8860B?text=VIETD&font=montserrat" alt="VietD Logo" onerror="this.src='https://placehold.co/200x60/0F172A/B8860B?text=VIETD'">
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#about">Giới thiệu</a>
+            <a href="#services">Dịch vụ</a>
+            <a href="#courses">Khóa học</a>
+            <a href="#team">Đội ngũ</a>
+            <a href="#experts">Chuyên gia</a>
+            <a href="#contact" class="nav-cta">Liên hệ</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- ============ HERO SLIDER ============ -->
+<section class="hero" id="hero">
+    <canvas id="particle-canvas" style="position:absolute;inset:0;z-index:5;pointer-events:none;"></canvas>
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active">
+        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80')"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-star"></i> SINCE 2020</div>
+            <h1>Kiến Tạo Vị Thế<br><span class="gold">Doanh Nhân Việt</span><br>Trên Bản Đồ Quốc Tế</h1>
+            <p>Điểm tựa tri thức và thịnh vượng — Nơi doanh nhân Việt được trang bị tư duy chiến lược, công nghệ AI và năng lực lãnh đạo toàn cầu.</p>
+            <div class="hero-buttons">
+                <a href="#courses" class="btn-primary">Khám Phá Khóa Học</a>
+                <a href="#about" class="btn-outline">Tìm Hiểu Thêm</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80')"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-microchip"></i> AI & DIGITAL</div>
+            <h1>Chuyển Đổi Số<br><span class="gold">Thực Chiến</span><br>Cho Doanh Nghiệp</h1>
+            <p>Trang bị công cụ AI và công nghệ số giúp lãnh đạo tối ưu hóa vận hành, ra quyết định dựa trên dữ liệu, và bứt phá tăng trưởng.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn-primary">Xem Dịch Vụ</a>
+                <a href="#contact" class="btn-outline">Tư Vấn Ngay</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1920&q=80')"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-handshake"></i> NETWORKING</div>
+            <h1>Kết Nối<br><span class="gold">Hệ Sinh Thái</span><br>Doanh Nhân Toàn Cầu</h1>
+            <p>Gia nhập cộng đồng doanh nhân tinh hoa, kết nối đối tác chiến lược và mở rộng cơ hội kinh doanh không giới hạn.</p>
+            <div class="hero-buttons">
+                <a href="#team" class="btn-primary">Đội Ngũ Lãnh Đạo</a>
+                <a href="#contact" class="btn-outline">Liên Hệ Hợp Tác</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="slider-dots">
+        <button class="slider-dot active" data-slide="0"></button>
+        <button class="slider-dot" data-slide="1"></button>
+        <button class="slider-dot" data-slide="2"></button>
+    </div>
+</section>
+
+<!-- ============ STATS BAR ============ -->
+<section class="stats-bar">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-number" data-target="250" data-suffix="+">0</div>
+            <div class="stat-label">Doanh nghiệp đào tạo</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="15" data-suffix="+">0</div>
+            <div class="stat-label">Chuyên gia hàng đầu</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="20" data-suffix="+">0</div>
+            <div class="stat-label">Chương trình đào tạo</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="5" data-suffix="">0</div>
+            <div class="stat-label">Năm kinh nghiệm</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about section-padding" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-image animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="VietD Team">
+                <div class="accent-box">
+                    <div class="number">2020</div>
+                    <div class="label">Thành lập</div>
+                </div>
+            </div>
+            <div class="animate-on-scroll">
+                <span class="section-label">Về chúng tôi</span>
+                <h2 class="section-title">Viện Đào Tạo & Phát Triển<br><span class="gold">Doanh Nhân Việt Nam</span></h2>
+                <div class="gold-bar"></div>
+                <p>Sứ mệnh của VietD là đánh thức và hiện thực hóa tiềm năng lãnh đạo tiềm ẩn bên trong mỗi doanh nhân. Chúng tôi cam kết trở thành <strong>"bệ phóng chiến lược"</strong>, giúp cộng đồng doanh nghiệp Việt Nam không chỉ vững chãi trên sân nhà mà còn tự tin vươn ra biển lớn.</p>
+                <p><em>"Chúng tôi không chỉ đào tạo ra những người làm kinh doanh, chúng tôi kiến tạo những nhà kiến thiết tương lai."</em></p>
+                <p>VietD tập trung vào việc đồng hành cùng doanh nhân trong <strong>năng lực thực thi, ra quyết định và kiến tạo giá trị bền vững</strong> cho tổ chức — nơi tri thức được chuyển hóa thành năng lực lãnh đạo.</p>
+
+                <div class="about-values">
+                    <div class="about-value">
+                        <i class="fa-solid fa-microchip"></i>
+                        <h4>Trí tuệ & Công nghệ</h4>
+                        <p>Chuyển đổi số thực chiến, làm chủ AI</p>
+                    </div>
+                    <div class="about-value">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h4>Tài chính & Vốn</h4>
+                        <p>M&A, IPO, Growth Strategy</p>
+                    </div>
+                    <div class="about-value">
+                        <i class="fa-solid fa-leaf"></i>
+                        <h4>Bền vững & ESG</h4>
+                        <p>Tech for Wellness, Thân-Tâm-Trí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services section-padding" id="services">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-label">Dịch vụ của chúng tôi</span>
+            <h2 class="section-title">Giải Pháp Đào Tạo <span class="gold">Toàn Diện</span></h2>
+            <div class="gold-bar"></div>
+            <p class="section-desc">Hệ sinh thái đào tạo và tư vấn chiến lược dành riêng cho doanh nhân Việt, từ khởi nghiệp đến quốc tế hóa.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-robot"></i></div>
+                <h3>Đào Tạo AI & Chuyển Đổi Số</h3>
+                <p>Trang bị kỹ năng AI cho lãnh đạo: ChatGPT, tự động hóa quy trình, phân tích dữ liệu, xây dựng chiến lược số hóa doanh nghiệp.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3>Mini MBA Thực Chiến</h3>
+                <p>Chương trình "The Augmented CEO" — trang bị tư duy quản trị cấp cao, ra quyết định dựa trên dữ liệu, chiến lược tăng trưởng bền vững.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <h3>Tư Vấn Pháp Lý Doanh Nghiệp</h3>
+                <p>Hỗ trợ setup doanh nghiệp, tuân thủ pháp luật, giải quyết tranh chấp, bảo vệ quyền lợi doanh nghiệp qua hệ sinh thái CCLaw.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-people-group"></i></div>
+                <h3>Đào Tạo Inhouse</h3>
+                <p>Thiết kế chương trình đào tạo riêng biệt theo nhu cầu doanh nghiệp: Sales B2B, quản trị nhân sự, Lean/Kaizen, văn hóa doanh nghiệp.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                <h3>Kết Nối Quốc Tế</h3>
+                <p>Cầu nối doanh nhân Việt với hệ sinh thái kinh doanh toàn cầu: Nhật Bản, Hàn Quốc, Mỹ, Châu Âu qua các chương trình hợp tác.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h3>ESG & Phát Triển Bền Vững</h3>
+                <p>Kiểm kê khí nhà kính (GHG), tín chỉ Carbon, lộ trình Net Zero, đánh giá vòng đời sản phẩm (LCA) cho doanh nghiệp Việt.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ COURSES ============ -->
+<section class="courses section-padding" id="courses">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-label">Chương trình đào tạo</span>
+            <h2 class="section-title">Khóa Học <span class="gold">Nổi Bật</span></h2>
+            <div class="gold-bar"></div>
+            <p class="section-desc">Các chương trình được thiết kế bám sát thực tiễn kinh doanh, giúp học viên ứng dụng ngay vào công việc.</p>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80')">
+                    <span class="course-badge">Hot</span>
+                </div>
+                <div class="course-body">
+                    <h3>AI cho Người Đi Làm & Doanh Nghiệp SME</h3>
+                    <p>Ứng dụng AI thực chiến vào công việc hàng ngày: tự động hóa, Marketing AI, quản trị dữ liệu, tối ưu quy trình.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 16 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> Mọi cấp độ</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80')">
+                    <span class="course-badge">Premium</span>
+                </div>
+                <div class="course-body">
+                    <h3>Mini MBA Thực Chiến — The Augmented CEO</h3>
+                    <p>Chương trình đào tạo CEO toàn diện: chiến lược, tài chính, vận hành, chuyển đổi số, lãnh đạo, M&A và IPO.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 120 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> CEO/Founders</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80')">
+                    <span class="course-badge">New</span>
+                </div>
+                <div class="course-body">
+                    <h3>CEO Data-Driven — Ra Quyết Định Bằng Dữ Liệu</h3>
+                    <p>Dashboard điều hành, KPI tracking, phân tích dữ liệu kinh doanh, xây dựng văn hóa data-driven cho tổ chức.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 24 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> Quản lý+</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&q=80')">
+                    <span class="course-badge">Inhouse</span>
+                </div>
+                <div class="course-body">
+                    <h3>Sales B2B & CRM Thời Đại Số</h3>
+                    <p>Kỹ năng bán hàng B2B hiện đại, quản trị khách hàng CRM, Social Selling, tối ưu pipeline và chốt deal.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 16 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> Sales Team</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=80')">
+                    <span class="course-badge">Trending</span>
+                </div>
+                <div class="course-body">
+                    <h3>Content Marketing & Digital Branding</h3>
+                    <p>Xây dựng thương hiệu số, content strategy, SEO, Social Media Marketing, quảng cáo hiệu quả cho SME.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 20 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> Marketing</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card animate-on-scroll">
+                <div class="course-img" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80')">
+                    <span class="course-badge">Special</span>
+                </div>
+                <div class="course-body">
+                    <h3>AI cho Cơ Quan Nhà Nước</h3>
+                    <p>Ứng dụng AI trong quản lý hành chính công: soạn thảo văn bản, nghiên cứu pháp luật, tối ưu quy trình phục vụ.</p>
+                    <div class="course-meta">
+                        <span><i class="fa-regular fa-clock"></i> 8 giờ</span>
+                        <span><i class="fa-regular fa-user"></i> Công chức</span>
+                        <span class="price">Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team section-padding" id="team">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-label">Ban Điều Hành</span>
+            <h2 class="section-title">Đội Ngũ <span class="gold">Lãnh Đạo</span></h2>
+            <div class="gold-bar"></div>
+            <p class="section-desc">Đội ngũ lãnh đạo giàu kinh nghiệm, kết hợp tư duy chiến lược và năng lực thực thi.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card animate-on-scroll">
+                <div class="team-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Dương+Mạnh+Hùng&background=0F172A&color=B8860B&size=256&bold=true&font-size=0.35" alt="Ths. Ls Dương Mạnh Hùng">
+                </div>
+                <h3>Ths. Ls Dương Mạnh Hùng</h3>
+                <div class="role">Viện trưởng VIETD</div>
+                <p>Chuyên gia Tư vấn Chiến lược Pháp lý & Quản trị Doanh nghiệp. 15+ năm kinh nghiệm. Chủ tịch HĐTV Công ty Luật CCLaw.</p>
+                <div class="team-tags">
+                    <span class="team-tag">MBA & Lawyer</span>
+                    <span class="team-tag">15+ Năm KN</span>
+                    <span class="team-tag">Chiến lược gia</span>
+                </div>
+            </div>
+            <div class="team-card animate-on-scroll">
+                <div class="team-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Vũ+Ngọc+Sỹ&background=0F172A&color=0EA5E9&size=256&bold=true&font-size=0.35" alt="Ông Vũ Ngọc Sỹ">
+                </div>
+                <h3>Ông Vũ Ngọc Sỹ</h3>
+                <div class="role">Viện phó</div>
+                <p>CTO chiến lược, chuyên gia AI & Cloud. Dẫn dắt dự án chuyển đổi số quy mô lớn cho Walmart, BestBuy, Bosch, Uniqlo.</p>
+                <div class="team-tags">
+                    <span class="team-tag">Global CTO</span>
+                    <span class="team-tag">AI & Digital</span>
+                    <span class="team-tag">15+ Năm KN</span>
+                </div>
+            </div>
+            <div class="team-card animate-on-scroll">
+                <div class="team-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Trần+Duy+Khiêm&background=0F172A&color=94A3B8&size=256&bold=true&font-size=0.35" alt="Ông Trần Duy Khiêm">
+                </div>
+                <h3>Ông Trần Duy Khiêm</h3>
+                <div class="role">Thành viên Ban điều hành</div>
+                <p>20+ năm kinh nghiệm quản trị chuỗi cung ứng. Chuyên gia năng suất JPC Nhật Bản. Từng làm việc tại P&G, Gemadept.</p>
+                <div class="team-tags">
+                    <span class="team-tag">Bách Khoa</span>
+                    <span class="team-tag">Japan Productivity</span>
+                    <span class="team-tag">20+ Năm KN</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ EXPERTS ============ -->
+<section class="experts section-padding" id="experts">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-label">Đội ngũ chuyên gia</span>
+            <h2 class="section-title">Giảng Viên <span class="gold">Hợp Tác</span></h2>
+            <div class="gold-bar"></div>
+            <p class="section-desc">Đội ngũ chuyên gia hàng đầu từ nhiều lĩnh vực, mang đến kiến thức thực chiến và kết nối quốc tế.</p>
+        </div>
+        <div class="experts-slider">
+            <div class="experts-track">
+                <!-- Slide 1 -->
+                <div class="expert-slide">
+                    <div class="expert-card animate-on-scroll">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Trần+Thanh+Tâm&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>TS. Trần Thanh Tâm</h4>
+                            <div class="specialty">GHG, Tín chỉ Carbon & ESG</div>
+                            <p>Tiến sĩ Vật liệu Sinh học, đào tạo 250+ doanh nghiệp về phát triển bền vững</p>
+                        </div>
+                    </div>
+                    <div class="expert-card animate-on-scroll">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Dương+Thúy+Đình&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Dương Thúy Đình</h4>
+                            <div class="specialty">Quản trị Nhân sự</div>
+                            <p>Chuyên gia HR Management, phát triển tổ chức và văn hóa doanh nghiệp</p>
+                        </div>
+                    </div>
+                    <div class="expert-card animate-on-scroll">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Phạm+Quốc+Việt&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Phạm Quốc Việt</h4>
+                            <div class="specialty">Marketing & Branding</div>
+                            <p>Chuyên gia chiến lược thương hiệu, digital marketing cho SME</p>
+                        </div>
+                    </div>
+                    <div class="expert-card animate-on-scroll">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Lê+Lương+Bảo+Thắng&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Lê Lương Bảo Thắng</h4>
+                            <div class="specialty">Tài chính Doanh nghiệp</div>
+                            <p>Chuyên gia tài chính, M&A, tư vấn đầu tư và tái cấu trúc doanh nghiệp</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="expert-slide">
+                    <div class="expert-card">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Dương+Quang+Duy&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Dương Quang Duy</h4>
+                            <div class="specialty">Công nghệ & Đổi mới</div>
+                            <p>Chuyên gia chuyển đổi số, hệ thống ERP và tối ưu quy trình</p>
+                        </div>
+                    </div>
+                    <div class="expert-card">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Nguyễn+Thị+Cẩm+Tiên&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Nguyễn Thị Cẩm Tiên</h4>
+                            <div class="specialty">Đào tạo & Phát triển</div>
+                            <p>Chuyên gia L&D, thiết kế chương trình đào tạo doanh nghiệp</p>
+                        </div>
+                    </div>
+                    <div class="expert-card">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Phạm+Đức+Duy&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Phạm Đức Duy</h4>
+                            <div class="specialty">Quản trị Vận hành</div>
+                            <p>Chuyên gia Lean Six Sigma, tối ưu chuỗi cung ứng và logistics</p>
+                        </div>
+                    </div>
+                    <div class="expert-card">
+                        <div class="expert-photo" style="background-image:url('https://ui-avatars.com/api/?name=Huỳnh+Mỹ+Phượng&background=0f52ba&color=fff&size=400&bold=true&font-size=0.3')"></div>
+                        <div class="expert-info">
+                            <h4>ThS. Huỳnh Mỹ Phượng</h4>
+                            <div class="specialty">Kế toán & Tài chính</div>
+                            <p>Chuyên gia kế toán quản trị, thuế và tuân thủ tài chính doanh nghiệp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="experts-nav">
+            <button class="expert-prev"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="expert-next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section class="services section-padding" id="philosophy" style="background: var(--white);">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <span class="section-label">Governance & Values</span>
+            <h2 class="section-title">Triết Lý <span class="gold">Quản Trị</span></h2>
+            <div class="gold-bar"></div>
+            <p class="section-desc">"Thực tế – Hiệu quả – Nhân văn" — Thước đo năng lực lãnh đạo không phải số giờ làm việc, mà là hiệu quả ra quyết định.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-database"></i></div>
+                <h3>Data-Driven</h3>
+                <p style="font-style:italic;color:var(--gold);font-size:0.82rem;margin-bottom:8px;">Dữ liệu dẫn dắt quyết định</p>
+                <p>Loại bỏ cảm tính. Mọi quyết định dựa trên dữ liệu thực tế Real-time. Lãnh đạo nắm rõ "sức khỏe" doanh nghiệp qua con số chính xác.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <h3>Tech for Wellness</h3>
+                <p style="font-style:italic;color:var(--gold);font-size:0.82rem;margin-bottom:8px;">Công nghệ phục vụ con người</p>
+                <p>Không làm nô lệ cho máy móc. Ứng dụng AI để giải phóng con người, trả lại thời gian quý giá. Tối ưu hiệu suất để cân bằng cuộc sống.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fa-solid fa-handshake"></i></div>
+                <h3>Practicality</h3>
+                <p style="font-style:italic;color:var(--gold);font-size:0.82rem;margin-bottom:8px;">Thực tiễn kiến tạo giá trị</p>
+                <p>Không lý thuyết sách vở. Áp dụng mô hình thực chiến (CEO Cockpit, Văn hóa 5:30 PM). Chuyển giao kinh nghiệm ngay lập tức.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="cta">
+    <div class="container animate-on-scroll">
+        <h2>Sẵn Sàng <span class="gold">Bứt Phá</span>?</h2>
+        <p>Liên hệ ngay để nhận tư vấn miễn phí về chương trình đào tạo phù hợp cho doanh nghiệp của bạn.</p>
+        <a href="tel:0913355331" class="btn-primary" style="display:inline-block;">
+            <i class="fa-solid fa-phone"></i>&nbsp; Gọi Ngay: 091 335 53 31
+        </a>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="https://placehold.co/200x60/0F172A/B8860B?text=VIETD&font=montserrat" alt="VietD Logo" onerror="this.src='https://placehold.co/200x60/FFFFFF/B8860B?text=VIETD'">
+                <h4 style="color:var(--white);font-size:1rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Viện Đào Tạo & Phát Triển<br>Doanh Nhân Việt Nam</h4>
+                <p>Điểm tựa tri thức và thịnh vượng cho cộng đồng doanh nghiệp Việt.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/VietD.edu.vn" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://vietd.edu.vn" target="_blank" aria-label="Website"><i class="fa-solid fa-globe"></i></a>
+                    <a href="tel:0913355331" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Liên Kết</h4>
+                <ul>
+                    <li><a href="#about">Giới thiệu</a></li>
+                    <li><a href="#services">Dịch vụ</a></li>
+                    <li><a href="#courses">Khóa học</a></li>
+                    <li><a href="#team">Đội ngũ</a></li>
+                    <li><a href="#experts">Chuyên gia</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Khóa Học</h4>
+                <ul>
+                    <li><a href="#courses">AI cho Doanh nghiệp</a></li>
+                    <li><a href="#courses">Mini MBA Thực Chiến</a></li>
+                    <li><a href="#courses">CEO Data-Driven</a></li>
+                    <li><a href="#courses">Sales B2B</a></li>
+                    <li><a href="#courses">ESG & Net Zero</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Liên Hệ</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> Tầng 2, Tòa nhà TPS, 31b Đ. Số 23, Hiệp Bình Chánh, Thủ Đức, TP. Hồ Chí Minh</li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:0913355331" style="color:rgba(255,255,255,0.6)">091 335 53 31</a></li>
+                    <li><i class="fa-solid fa-user"></i> Trần Duy Khiêm</li>
+                    <li><i class="fa-solid fa-globe"></i> <a href="https://vietd.edu.vn" target="_blank" style="color:rgba(255,255,255,0.6)">VietD.edu.vn</a></li>
+                    <li><i class="fa-brands fa-facebook"></i> <a href="https://www.facebook.com/VietD.edu.vn" target="_blank" style="color:rgba(255,255,255,0.6)">facebook.com/VietD.edu.vn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VIETD Institute — Viện Đào Tạo & Phát Triển Doanh Nhân Việt Nam. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>
