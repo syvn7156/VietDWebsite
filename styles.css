@@ -1097,6 +1097,11 @@ ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .future-grid,
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
   .expert-slide {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1161,6 +1166,11 @@ ul {
   .courses-grid,
   .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  .future-grid,
+  .partners-grid {
+    grid-template-columns: 1fr !important;
   }
 
   .expert-slide {
