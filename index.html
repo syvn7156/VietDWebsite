@@ -1,721 +1,1321 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
-
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VietD - Viện Đào Tạo & Phát Triển Doanh Nhân Việt Nam</title>
-    <meta name="description"
-        content="Viện Đào Tạo và Phát Triển Doanh Nhân Việt Nam (VietD) - Điểm tựa tri thức và thịnh vượng. Đào tạo AI, Chuyển đổi số, ESG, Mini MBA cho doanh nhân Việt.">
-    <meta name="keywords"
-        content="VietD, đào tạo doanh nhân, AI, chuyển đổi số, Mini MBA, ESG, SDGs, Net Zero, CBAM, phát triển bền vững, Việt Nam">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" type="image/png"
-        href="https://ui-avatars.com/api/?name=VD&background=092051&color=B8860B&size=32&bold=true">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Viện Đào tạo & Phát triển Doanh nhân Việt Nam — VP Holding">
+<title>Viện Đào tạo & Phát triển Doanh nhân Việt Nam — VP Holding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --bg:        #03030c;
+  --bg-2:      #07071a;
+  --surface:   rgba(255,255,255,0.04);
+  --surface-2: rgba(255,255,255,0.07);
+  --border:    rgba(255,255,255,0.09);
+  --border-h:  rgba(255,255,255,0.22);
 
+  --text:    #f0f0fa;
+  --text-2:  #b5b8cc;
+  --muted:   #71748f;
+  --dim:     #3f415a;
+
+  --cyan:    #00e5ff;
+  --magenta: #ff2d8b;
+  --gold:    #ffc857;
+  --purple:  #6b3bdb;
+  --pink:    #ff7ac6;
+
+  --ff-vi:   'Be Vietnam Pro', system-ui, sans-serif;
+  --ff-en:   'Space Grotesk', 'Be Vietnam Pro', system-ui, sans-serif;
+  --ff-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --pad-x: clamp(20px, 5vw, 72px);
+  --max-w: 1280px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body{
+  font-family: var(--ff-vi);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; padding: 0; }
+img, svg { display: block; max-width: 100%; }
+::selection { background: var(--cyan); color: var(--bg); }
+
+/* ============================================================
+   BACKGROUND — mesh gradient + grid + orbs
+   ============================================================ */
+.bg-mesh{
+  position: fixed; inset: 0; z-index: -3;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, rgba(0,229,255,0.18), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 30%, rgba(255,45,139,0.18), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 90%, rgba(107,59,219,0.20), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(255,200,87,0.12), transparent 55%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  animation: meshShift 24s ease-in-out infinite alternate;
+}
+@keyframes meshShift{
+  0%   { filter: hue-rotate(0deg)   saturate(1.0); transform: scale(1.0); }
+  100% { filter: hue-rotate(15deg)  saturate(1.15); transform: scale(1.05); }
+}
+.bg-orbs{
+  position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+}
+.orb{
+  position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.65;
+}
+.orb-1{ width: 480px; height: 480px; top: -10%; left: -8%;
+  background: radial-gradient(closest-side, rgba(0,229,255,0.55), transparent);
+  animation: drift1 22s ease-in-out infinite alternate; }
+.orb-2{ width: 560px; height: 560px; top: 30%; right: -10%;
+  background: radial-gradient(closest-side, rgba(255,45,139,0.45), transparent);
+  animation: drift2 26s ease-in-out infinite alternate; }
+.orb-3{ width: 420px; height: 420px; bottom: -15%; left: 30%;
+  background: radial-gradient(closest-side, rgba(107,59,219,0.5), transparent);
+  animation: drift3 30s ease-in-out infinite alternate; }
+@keyframes drift1{ to { transform: translate(120px, 80px) scale(1.2); } }
+@keyframes drift2{ to { transform: translate(-100px, 120px) scale(1.15); } }
+@keyframes drift3{ to { transform: translate(80px, -100px) scale(1.25); } }
+
+.bg-grid{
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at center, #000, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, #000, transparent 80%);
+}
+
+/* Scroll progress bar */
+.scroll-bar{
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100;
+  background: var(--surface);
+}
+.scroll-bar > span{
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--gold));
+  transform-origin: left;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px var(--pad-x);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(3,3,12,0.7), rgba(3,3,12,0.25));
+  border-bottom: 1px solid transparent;
+  transition: background 0.35s var(--ease-out), border-color 0.35s ease;
+}
+.nav.scrolled{
+  background: linear-gradient(180deg, rgba(3,3,12,0.92), rgba(3,3,12,0.75));
+  border-bottom-color: var(--border);
+}
+.brand{ display: flex; align-items: center; gap: 12px; font-weight: 700; }
+.brand-mark{
+  width: 38px; height: 38px; border-radius: 11px;
+  background: conic-gradient(from 180deg at 50% 50%, var(--cyan), var(--purple), var(--magenta), var(--gold), var(--cyan));
+  position: relative;
+  box-shadow: 0 0 24px rgba(0,229,255,0.35);
+  animation: spin 12s linear infinite;
+}
+.brand-mark::after{
+  content: "V"; position: absolute; inset: 4px; border-radius: 8px;
+  background: var(--bg); display: grid; place-items: center;
+  font-family: var(--ff-en); font-weight: 800; color: var(--cyan);
+  text-shadow: 0 0 8px rgba(0,229,255,0.6);
+  animation: spin 12s linear infinite reverse;
+}
+@keyframes spin{ to { transform: rotate(360deg); } }
+.brand-text{ display: flex; flex-direction: column; line-height: 1.05; }
+.brand-text .vi{ font-size: 13.5px; font-weight: 700; }
+.brand-text .en{ font-size: 10px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--ff-en); }
+.nav-links{ display: flex; gap: 28px; align-items: center; }
+.nav-links a{
+  font-size: 14px; color: var(--text-2); position: relative;
+  transition: color 0.25s ease;
+}
+.nav-links a::after{
+  content: ""; position: absolute; left: 0; bottom: -6px;
+  width: 0; height: 1px; background: var(--cyan);
+  transition: width 0.35s var(--ease-out);
+  box-shadow: 0 0 8px var(--cyan);
+}
+.nav-links a:hover{ color: var(--text); }
+.nav-links a:hover::after{ width: 100%; }
+.nav-cta{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: var(--bg); font-weight: 600; font-size: 13px;
+  box-shadow: 0 8px 28px rgba(0,229,255,0.28);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+.nav-cta:hover{ transform: translateY(-2px); box-shadow: 0 14px 38px rgba(0,229,255,0.5); }
+@media (max-width: 880px){ .nav-links{ display: none; } }
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+section{
+  position: relative;
+  padding: clamp(80px, 12vh, 140px) var(--pad-x);
+}
+.container{ max-width: var(--max-w); margin: 0 auto; }
+.kicker{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-family: var(--ff-en); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--cyan);
+}
+.kicker .dot{
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: 0.4; transform: scale(1.4); } }
+h1, h2, h3 { margin: 0; line-height: 1.05; font-weight: 700; letter-spacing: -0.02em; }
+h2.section-title{ font-size: clamp(34px, 5vw, 60px); margin: 18px 0 14px; }
+.section-sub{ font-size: clamp(15px, 1.4vw, 17px); color: var(--text-2); max-width: 680px; line-height: 1.65; }
+.section-sub .en{ display: block; font-family: var(--ff-en); font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding-top: 140px; padding-bottom: 80px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-inner{ max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+.hero .kicker{ margin-bottom: 30px; }
+
+.hero h1{
+  font-size: clamp(54px, 9vw, 144px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0 0 28px;
+}
+.hero h1 .line{ display: block; overflow: hidden; padding: 0.04em 0; }
+.hero h1 .char{
+  display: inline-block;
+  background: linear-gradient(120deg, var(--text) 30%, var(--cyan) 50%, var(--magenta) 70%, var(--gold) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s ease-in-out infinite;
+}
+@keyframes shimmer{ 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.hero h1 .en{
+  display: block;
+  font-family: var(--ff-en);
+  font-size: 0.16em;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 26px;
+  -webkit-text-fill-color: var(--muted);
+}
+.hero-lead{
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--text-2);
+  max-width: 720px; margin: 0 auto;
+  line-height: 1.65;
+}
+.hero-lead .en{
+  display: block; margin-top: 8px;
+  font-family: var(--ff-en); font-size: 0.82em;
+  color: var(--muted); font-style: italic;
+}
+.hero-actions{
+  display: flex; gap: 14px; justify-content: center;
+  margin-top: 44px; flex-wrap: wrap;
+}
+.btn{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 17px 32px; border-radius: 999px;
+  font-weight: 600; font-size: 15px;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s ease, background 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.btn-primary{
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: var(--bg);
+  box-shadow: 0 14px 44px rgba(0,229,255,0.30);
+}
+.btn-primary::before{
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.65s var(--ease-out);
+}
+.btn-primary:hover::before{ transform: translateX(100%); }
+.btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 20px 54px rgba(0,229,255,0.55); }
+.btn-ghost{
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text); backdrop-filter: blur(10px);
+}
+.btn-ghost:hover{ background: var(--surface-2); border-color: var(--border-h); transform: translateY(-2px); }
+.btn .arrow{ width: 16px; height: 16px; transition: transform 0.25s var(--ease-out); }
+.btn:hover .arrow{ transform: translateX(5px); }
+
+.hero-metrics{
+  margin-top: 88px;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 0; max-width: 900px; margin-left: auto; margin-right: auto;
+}
+.hero-metrics .m{ text-align: center; border-right: 1px solid var(--border); padding: 6px 12px; }
+.hero-metrics .m:last-child{ border-right: none; }
+.hero-metrics .n{
+  font-family: var(--ff-en); font-weight: 700;
+  font-size: clamp(26px, 2.6vw, 36px);
+  background: linear-gradient(135deg, var(--cyan), var(--gold));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-metrics .l{
+  font-size: 11px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  margin-top: 4px; font-family: var(--ff-en);
+}
+@media (max-width: 720px){
+  .hero-metrics{ grid-template-columns: repeat(2, 1fr); }
+  .hero-metrics .m:nth-child(2){ border-right: none; }
+  .hero-metrics .m:nth-child(1), .hero-metrics .m:nth-child(2){ border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+  .hero-metrics .m:nth-child(3), .hero-metrics .m:nth-child(4){ padding-top: 18px; }
+}
+
+.scroll-hint{
+  position: absolute; left: 50%; bottom: 28px;
+  transform: translateX(-50%);
+  font-family: var(--ff-en); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.scroll-hint .line{
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+  animation: scrollHint 2.4s ease-in-out infinite;
+}
+@keyframes scrollHint{
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ============================================================
+   MARQUEE (keyword energy strip)
+   ============================================================ */
+.marquee{
+  padding: 50px 0 56px;
+  overflow: hidden; position: relative;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+}
+.marquee::before, .marquee::after{
+  content: ""; position: absolute; top: 0; bottom: 0;
+  width: 160px; z-index: 2; pointer-events: none;
+}
+.marquee::before{ left: 0;  background: linear-gradient(90deg, var(--bg), transparent); }
+.marquee::after{  right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+.mq-track{
+  display: flex; gap: 56px; width: max-content;
+  animation: scrollX 36s linear infinite;
+  align-items: center;
+}
+@keyframes scrollX{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.mq-item{
+  display: flex; align-items: center; gap: 18px;
+  white-space: nowrap;
+  font-family: var(--ff-en); font-size: 22px;
+  font-weight: 600; color: var(--text-2);
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
+}
+.mq-item:hover{ color: var(--cyan); }
+.mq-dot{
+  display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
+}
+.mq-dot.gold{    background: var(--gold);    box-shadow: 0 0 10px var(--gold); }
+.mq-dot.magenta{ background: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
+.mq-dot.purple{  background: var(--purple);  box-shadow: 0 0 10px var(--purple); }
+
+/* ============================================================
+   MISSION (3 pillars)
+   ============================================================ */
+.mission .grid{
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 56px;
+}
+.pillar{
+  position: relative;
+  padding: 38px 32px;
+  border-radius: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  transition: transform 0.45s var(--ease-out), border-color 0.4s ease, background 0.4s ease;
+}
+.pillar::before{
+  content: ""; position: absolute; inset: -1px; padding: 1px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, transparent, transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  transition: background 0.5s ease;
+  pointer-events: none;
+}
+.pillar:hover{ transform: translateY(-8px); background: var(--surface-2); }
+.pillar:hover::before{ background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta)); }
+.pillar .ic{
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.14), rgba(107,59,219,0.14));
+  border: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+.pillar .ic svg{ width: 26px; height: 26px; stroke: var(--cyan); }
+.pillar .num{ font-family: var(--ff-en); font-weight: 500; color: var(--cyan); font-size: 12px; letter-spacing: 0.2em; }
+.pillar h3{ font-size: 26px; margin: 12px 0 6px; }
+.pillar .en-h{ font-family: var(--ff-en); font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+.pillar p{ color: var(--text-2); font-size: 15px; line-height: 1.7; margin: 0; }
+@media (max-width: 880px){ .mission .grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   PROGRAMS (4 cards, 3D tilt)
+   ============================================================ */
+.programs .grid{
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px;
+  margin-top: 56px;
+  perspective: 1500px;
+}
+.prog{
+  position: relative;
+  padding: 42px 36px 38px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.4s ease;
+  transform-style: preserve-3d;
+}
+.prog::after{
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.prog:hover{ border-color: var(--border-h); }
+.prog:hover::after{ opacity: 1; }
+.prog .shine{
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(0,229,255,0.15), transparent 45%);
+  opacity: 0; transition: opacity 0.4s ease;
+  border-radius: 26px;
+}
+.prog:hover .shine{ opacity: 1; }
+.prog .badge{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--ff-en); font-size: 11px;
+  color: var(--cyan); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-bottom: 22px;
+}
+.prog .badge .pill{
+  background: rgba(0,229,255,0.10);
+  border: 1px solid rgba(0,229,255,0.28);
+  padding: 4px 11px; border-radius: 999px; color: var(--cyan);
+}
+.prog h3{ font-size: clamp(22px, 2.4vw, 30px); margin-bottom: 6px; line-height: 1.18; }
+.prog .en-t{ font-family: var(--ff-en); font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.prog p{ color: var(--text-2); font-size: 14.5px; line-height: 1.65; margin: 0 0 22px; }
+.prog ul{ list-style: none; padding: 0; margin: 0; }
+.prog ul li{
+  position: relative; padding-left: 22px; margin-bottom: 9px;
+  font-size: 13.5px; color: var(--text-2);
+}
+.prog ul li::before{
+  content: ""; position: absolute; left: 0; top: 9px;
+  width: 12px; height: 1px; background: var(--cyan);
+}
+.prog-2 .badge{ color: var(--magenta); }
+.prog-2 .badge .pill{ background: rgba(255,45,139,0.10); border-color: rgba(255,45,139,0.28); color: var(--magenta); }
+.prog-2 ul li::before{ background: var(--magenta); }
+.prog-2 .shine{ background: radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(255,45,139,0.15), transparent 45%); }
+.prog-3 .badge{ color: var(--gold); }
+.prog-3 .badge .pill{ background: rgba(255,200,87,0.10); border-color: rgba(255,200,87,0.28); color: var(--gold); }
+.prog-3 ul li::before{ background: var(--gold); }
+.prog-3 .shine{ background: radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(255,200,87,0.15), transparent 45%); }
+.prog-4 .badge{ color: #b89aff; }
+.prog-4 .badge .pill{ background: rgba(107,59,219,0.16); border-color: rgba(107,59,219,0.32); color: #b89aff; }
+.prog-4 ul li::before{ background: var(--purple); }
+.prog-4 .shine{ background: radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(107,59,219,0.18), transparent 45%); }
+@media (max-width: 880px){ .programs .grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   COURSES — DOUBLE-ROW marquee (left + right)
+   ============================================================ */
+.courses{
+  padding: 88px 0 100px;
+  overflow: hidden;
+  position: relative;
+}
+.courses .head{
+  padding: 0 var(--pad-x); max-width: var(--max-w); margin: 0 auto 36px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; flex-wrap: wrap;
+}
+.courses .head h2{ font-size: clamp(30px, 4vw, 48px); margin: 14px 0 6px; }
+.courses .head .sub{ color: var(--text-2); font-size: 14.5px; max-width: 540px; }
+.courses .head .hint{ font-family: var(--ff-en); font-size: 11px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
+.row-fade{ position: relative; }
+.row-fade::before, .row-fade::after{
+  content: ""; position: absolute; top: 0; bottom: 0;
+  width: 140px; z-index: 2; pointer-events: none;
+}
+.row-fade::before{ left: 0;  background: linear-gradient(90deg, var(--bg), transparent); }
+.row-fade::after{  right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+.crow{
+  display: flex; gap: 22px; width: max-content;
+  padding: 12px 0;
+  animation: scrollX 55s linear infinite;
+}
+.crow.reverse{ animation: scrollX 55s linear infinite reverse; animation-duration: 60s; }
+.crow + .crow{ margin-top: 18px; }
+.ccard{
+  flex-shrink: 0; width: 330px;
+  padding: 28px 26px 24px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: transform 0.3s var(--ease-spring), border-color 0.3s ease;
+}
+.ccard:hover{ transform: translateY(-6px); border-color: var(--border-h); }
+.ccard .bar{
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+}
+.ccard.gold .bar    { background: linear-gradient(90deg, var(--gold), var(--magenta)); }
+.ccard.magenta .bar { background: linear-gradient(90deg, var(--magenta), var(--purple)); }
+.ccard.purple .bar  { background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+.ccard .top{
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 14px; gap: 12px;
+}
+.ccard .cat{ font-family: var(--ff-en); font-size: 10px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; }
+.ccard .dur{
+  font-family: var(--ff-en); font-size: 11px;
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(0,229,255,0.10); border: 1px solid rgba(0,229,255,0.25); color: var(--cyan);
+  white-space: nowrap;
+}
+.ccard.gold .dur    { background: rgba(255,200,87,0.10);  border-color: rgba(255,200,87,0.25);  color: var(--gold); }
+.ccard.magenta .dur { background: rgba(255,45,139,0.10);  border-color: rgba(255,45,139,0.25);  color: var(--magenta); }
+.ccard.purple .dur  { background: rgba(107,59,219,0.16);  border-color: rgba(107,59,219,0.30);  color: #b89aff; }
+.ccard h4{ font-size: 17px; line-height: 1.3; margin: 0 0 8px; font-weight: 600; }
+.ccard .tagline{ font-size: 13px; color: var(--text-2); line-height: 1.55; margin: 0; }
+.ccard .lv{
+  margin-top: 16px;
+  font-family: var(--ff-en); font-size: 10px; letter-spacing: 0.18em;
+  color: var(--muted); text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+}
+.ccard .lv::before{ content: ""; width: 14px; height: 1px; background: var(--cyan); }
+
+/* ============================================================
+   PARTNERS — grid + logo marquee
+   ============================================================ */
+.partners .grid{
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  margin-top: 48px;
+}
+.partner{
+  padding: 28px 22px; border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s var(--ease-spring), background 0.3s ease, border-color 0.3s ease;
+}
+.partner:hover{ transform: translateY(-4px); background: var(--surface-2); border-color: var(--border-h); }
+.partner .tag{ font-family: var(--ff-en); font-size: 10px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; }
+.partner h4{ font-size: 16px; margin: 0 0 6px; font-weight: 600; line-height: 1.3; }
+.partner .meta{ font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+.partner .meta .en{ display: block; font-family: var(--ff-en); font-size: 11px; color: var(--muted); margin-top: 4px; }
+@media (max-width: 980px){ .partners .grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px){ .partners .grid{ grid-template-columns: 1fr; } }
+
+.lmq{
+  margin-top: 56px;
+  padding: 36px 0 40px;
+  overflow: hidden; position: relative;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+}
+.lmq::before, .lmq::after{
+  content: ""; position: absolute; top: 0; bottom: 0;
+  width: 140px; z-index: 2; pointer-events: none;
+}
+.lmq::before{ left: 0;  background: linear-gradient(90deg, var(--bg), transparent); }
+.lmq::after{  right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+.lmq-label{ text-align: center; font-family: var(--ff-en); font-size: 11px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-bottom: 22px; }
+.lmq-track{
+  display: flex; gap: 32px; width: max-content;
+  align-items: center;
+  animation: scrollX 48s linear infinite;
+}
+.ltile{
+  flex-shrink: 0; min-width: 220px;
+  padding: 16px 26px;
+  border: 1px solid var(--border); border-radius: 14px;
+  background: rgba(255,255,255,0.025);
+  display: flex; flex-direction: column; gap: 3px;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s var(--ease-spring);
+}
+.ltile:hover{ transform: translateY(-3px); border-color: var(--border-h); background: rgba(255,255,255,0.05); }
+.ltile .name{
+  font-family: var(--ff-en); font-weight: 700; font-size: 18px;
+  background: linear-gradient(135deg, var(--text), var(--text-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  white-space: nowrap;
+}
+.ltile .sub{ font-size: 11px; color: var(--muted); }
+.ltile.c-cyan    .name{ background: linear-gradient(135deg, var(--cyan), var(--text));    -webkit-background-clip: text; color: transparent; }
+.ltile.c-gold    .name{ background: linear-gradient(135deg, var(--gold), var(--text));    -webkit-background-clip: text; color: transparent; }
+.ltile.c-magenta .name{ background: linear-gradient(135deg, var(--magenta), var(--text)); -webkit-background-clip: text; color: transparent; }
+.ltile.c-purple  .name{ background: linear-gradient(135deg, #b89aff, var(--text));        -webkit-background-clip: text; color: transparent; }
+
+/* ============================================================
+   CTA / FORM
+   ============================================================ */
+.cta-wrap{
+  margin-top: 24px;
+  padding: 64px clamp(28px, 5vw, 72px);
+  border-radius: 32px;
+  background:
+    radial-gradient(800px 400px at 80% 0%, rgba(0,229,255,0.20), transparent 60%),
+    radial-gradient(600px 400px at 10% 100%, rgba(255,45,139,0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.cta-wrap::before{
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent 0 28px, rgba(255,255,255,0.012) 28px 29px);
+  pointer-events: none; opacity: 0.7;
+}
+.cta-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 56px; position: relative; z-index: 1; }
+.cta-grid .left h2{ font-size: clamp(30px, 3.6vw, 48px); margin-bottom: 16px; }
+.cta-grid .left p{ color: var(--text-2); font-size: 15.5px; line-height: 1.7; margin-bottom: 26px; }
+.cta-grid .left p .en{ display: block; font-family: var(--ff-en); font-size: 13px; color: var(--muted); margin-top: 6px; }
+.contact-list{ list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px; }
+.contact-list li{ display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-2); }
+.contact-list li .ic{
+  width: 36px; height: 36px; display: grid; place-items: center;
+  border-radius: 10px; background: var(--surface); border: 1px solid var(--border);
+}
+.contact-list li .ic svg{ width: 16px; height: 16px; stroke: var(--cyan); }
+form.signup{ display: flex; flex-direction: column; gap: 14px; }
+.field{ display: flex; flex-direction: column; gap: 6px; position: relative; }
+.field label{ font-family: var(--ff-en); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea{
+  width: 100%; padding: 15px 16px; border-radius: 12px;
+  background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+  color: var(--text); font-family: inherit; font-size: 14.5px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.18);
+  background: rgba(0,0,0,0.6);
+}
+.field textarea{ min-height: 100px; resize: vertical; }
+.field select{
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%2300e5ff' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
+}
+.field-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-msg{ font-size: 13px; color: var(--cyan); margin-top: 4px; min-height: 18px; }
+@media (max-width: 880px){
+  .cta-grid{ grid-template-columns: 1fr; gap: 32px; }
+  .field-row{ grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ padding: 64px var(--pad-x) 48px; border-top: 1px solid var(--border); margin-top: 80px; }
+.foot{
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+}
+.foot .brand-block .brand{ margin-bottom: 16px; }
+.foot .brand-block p{ font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; max-width: 320px; }
+.foot h5{ font-family: var(--ff-en); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); margin: 0 0 14px; }
+.foot ul{ list-style: none; padding: 0; margin: 0; }
+.foot ul li{ margin-bottom: 8px; font-size: 13px; color: var(--text-2); }
+.foot ul li a:hover{ color: var(--cyan); }
+.foot-bottom{
+  max-width: var(--max-w); margin: 48px auto 0;
+  padding-top: 24px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-size: 12px; color: var(--muted);
+}
+.foot-bottom .en{ font-family: var(--ff-en); letter-spacing: 0.08em; }
+@media (max-width: 880px){ .foot{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px){ .foot{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   CUSTOM CURSOR (capable devices only)
+   ============================================================ */
+.cur-dot{
+  position: fixed; top: 0; left: 0;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 14px var(--cyan);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: difference;
+  transition: width 0.25s var(--ease-spring), height 0.25s var(--ease-spring), background 0.25s ease;
+}
+.cur-ring{
+  position: fixed; top: 0; left: 0;
+  width: 38px; height: 38px;
+  border: 1px solid rgba(0,229,255,0.55); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.35s var(--ease-spring), height 0.35s var(--ease-spring), border-color 0.3s ease;
+}
+.cur-dot.hover{ width: 58px; height: 58px; background: rgba(0,229,255,0.18); }
+.cur-ring.hover{ width: 78px; height: 78px; border-color: rgba(0,229,255,0.85); }
+@media (hover: hover) and (pointer: fine){
+  body.has-cur, body.has-cur *{ cursor: none !important; }
+}
+
+/* ============================================================
+   REVEAL (GSAP fallback)
+   ============================================================ */
+.reveal{ opacity: 0; transform: translateY(36px); }
+.reveal.in{ opacity: 1; transform: none; transition: opacity 0.95s var(--ease-out), transform 0.95s var(--ease-out); }
+.reveal.delay-1{ transition-delay: 0.1s; }
+.reveal.delay-2{ transition-delay: 0.2s; }
+.reveal.delay-3{ transition-delay: 0.3s; }
+.reveal.delay-4{ transition-delay: 0.4s; }
+
+/* ============================================================
+   REDUCE-MOTION — targeted only (allow ambient marquees)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .pillar:hover, .prog:hover, .partner:hover, .ccard:hover, .ltile:hover{ transform: none !important; }
+}
+</style>
+</head>
 <body>
 
-    <!-- ============ NAVBAR ============ -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <a href="#" class="nav-logo">
-                <img src="assets/images/logo.png" alt="VietD Logo"
-                    onerror="this.src='https://placehold.co/200x60/092051/B8860B?text=VIETD'">
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="#about">Giới thiệu</a>
-                <a href="#trends">Xu hướng</a>
-                <a href="#courses">Khóa học</a>
-                <a href="#team">Đội ngũ</a>
-                <a href="#partners">Đối tác</a>
-                <a href="#contact" class="nav-cta">Liên hệ</a>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
-            </div>
+<!-- BACKGROUND -->
+<div class="bg-mesh"   aria-hidden="true"></div>
+<div class="bg-orbs"   aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+<div class="bg-grid"   aria-hidden="true"></div>
+<div class="scroll-bar"><span id="scrollProg"></span></div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cur-ring" id="curRing" aria-hidden="true"></div>
+<div class="cur-dot"  id="curDot"  aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="VPH Entrepreneur Institute">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text">
+      <span class="vi">Viện Đào tạo Doanh nhân</span>
+      <span class="en">Entrepreneur Institute · VPH</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="#mission">Sứ mệnh</a>
+    <a href="#programs">Chương trình</a>
+    <a href="#courses">Khóa ngắn</a>
+    <a href="#partners">Đối tác</a>
+  </div>
+  <a href="#contact" class="nav-cta">Đăng ký <span aria-hidden="true">→</span></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="kicker"><span class="dot"></span>VIỆN ĐÀO TẠO & PHÁT TRIỂN DOANH NHÂN VIỆT NAM</div>
+    <h1>
+      <span class="line" data-split>Doanh nhân</span>
+      <span class="line" data-split>thế hệ AI</span>
+      <span class="en">AI-Generation Entrepreneurs · Across Borders</span>
+    </h1>
+    <p class="hero-lead reveal">
+      Nơi vốn, công nghệ và tri thức hội tụ. Một bệ phóng cho thế hệ doanh nhân Việt vận hành đế chế xuyên biên giới — và ở lại lâu.
+      <span class="en">Where capital, technology and knowledge converge — a launchpad for cross-border empires.</span>
+    </p>
+    <div class="hero-actions reveal delay-1">
+      <a href="#programs" class="btn btn-primary">
+        Khám phá chương trình
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-ghost">Đăng ký tư vấn</a>
+    </div>
+    <div class="hero-metrics reveal delay-2">
+      <div class="m"><div class="n" data-count="70" data-suffix="%">70%</div><div class="l">Thực hành / Practice</div></div>
+      <div class="m"><div class="n" data-count="20" data-suffix="+">20+</div><div class="l">Tiến sĩ &amp; Cố vấn</div></div>
+      <div class="m"><div class="n" data-count="525">525</div><div class="l">Thành phố / Cities</div></div>
+      <div class="m"><div class="n">∞</div><div class="l">Tầm nhìn / Horizon</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>CUỘN XUỐNG · SCROLL</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- KEYWORD MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track" id="mqTrack">
+    <span class="mq-item">AI · Doanh nhân<span class="mq-dot"></span></span>
+    <span class="mq-item">Vốn xuyên biên giới<span class="mq-dot gold"></span></span>
+    <span class="mq-item">Crypto · RWA · Tokenization<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">Sandbox 2 tỷ<span class="mq-dot"></span></span>
+    <span class="mq-item">Chuỗi cung ứng toàn cầu<span class="mq-dot gold"></span></span>
+    <span class="mq-item">M&amp;A · SPV · Firewall Co.<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">Peer-AI Workforce<span class="mq-dot purple"></span></span>
+    <span class="mq-item">Cross-border Empire<span class="mq-dot gold"></span></span>
+    <span class="mq-item">HSU · VGA · Peking · MIT<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">525 cities · 195 countries<span class="mq-dot"></span></span>
+    <span class="mq-item">AI · Doanh nhân<span class="mq-dot"></span></span>
+    <span class="mq-item">Vốn xuyên biên giới<span class="mq-dot gold"></span></span>
+    <span class="mq-item">Crypto · RWA · Tokenization<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">Sandbox 2 tỷ<span class="mq-dot"></span></span>
+    <span class="mq-item">Chuỗi cung ứng toàn cầu<span class="mq-dot gold"></span></span>
+    <span class="mq-item">M&amp;A · SPV · Firewall Co.<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">Peer-AI Workforce<span class="mq-dot purple"></span></span>
+    <span class="mq-item">Cross-border Empire<span class="mq-dot gold"></span></span>
+    <span class="mq-item">HSU · VGA · Peking · MIT<span class="mq-dot magenta"></span></span>
+    <span class="mq-item">525 cities · 195 countries<span class="mq-dot"></span></span>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="container">
+    <div class="reveal">
+      <span class="kicker"><span class="dot"></span>SỨ MỆNH · MISSION</span>
+      <h2 class="section-title">Ba trụ cột định hình<br>người chỉ huy thế hệ AI</h2>
+      <p class="section-sub">
+        Viện không bán khoá học — Viện rèn người ra trận. Trang bị cho doanh nhân Việt vũ khí công nghệ, bản lĩnh tài chính và tư duy xuyên biên giới để cầm quân trong kỷ nguyên mới.
+        <span class="en">We don't sell courses — we forge commanders for the new era.</span>
+      </p>
+    </div>
+    <div class="grid">
+      <div class="pillar reveal delay-1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-7 11-7 11z" stroke="currentColor"/></svg></div>
+        <div class="num">01</div>
+        <h3>Phụng sự &amp; Tham vọng</h3>
+        <div class="en-h">Service &amp; Ambition</div>
+        <p>"Cho đi càng nhiều, vĩ đại càng lớn." Tham vọng không tách rời trách nhiệm — đào tạo một thế hệ doanh nhân Việt đủ sức ngồi cùng bàn với thế giới.</p>
+      </div>
+      <div class="pillar reveal delay-2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" stroke="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor"/></svg></div>
+        <div class="num">02</div>
+        <h3>Chủ quyền tư duy</h3>
+        <div class="en-h">Sovereign Thinking</div>
+        <p>Từ "học để biết" sang "học để chỉ huy". Tư duy độc lập, phán đoán nhạy bén, ra quyết định dưới áp lực thời gian thực — kỹ năng tối thượng khi AI làm hết mọi việc còn lại.</p>
+      </div>
+      <div class="pillar reveal delay-3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor"/><path d="M3 9h18M7 14h4M14 14h3" stroke="currentColor"/></svg></div>
+        <div class="num">03</div>
+        <h3>Hệ điều hành của người chỉ huy</h3>
+        <div class="en-h">Operating System For Commanders</div>
+        <p>Vốn · Công nghệ · Tri thức · Mạng lưới — toàn bộ "kit" để vận hành một đế chế đa quốc gia. Không phải khoá học, là hạ tầng vận hành cho cả sự nghiệp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div class="reveal">
+      <span class="kicker"><span class="dot"></span>CHƯƠNG TRÌNH · PROGRAMS</span>
+      <h2 class="section-title">Bốn lộ trình — bốn tầng năng lực</h2>
+      <p class="section-sub">
+        Mỗi chương trình được thiết kế theo công thức <strong style="color:var(--text)">30% lý thuyết / 70% thực hành</strong>. Học viên rời lớp với công cụ chạy được — không chỉ kiến thức để nói.
+        <span class="en">30% theory / 70% practice. Students leave with working tools.</span>
+      </p>
+    </div>
+    <div class="grid">
+      <article data-tilt class="prog prog-1 reveal delay-1">
+        <div class="shine"></div>
+        <div class="badge"><span class="pill">01</span> AI &amp; Doanh nghiệp</div>
+        <h3>AI cho Doanh nhân</h3>
+        <div class="en-t">AI for Entrepreneurs · Peer-AI Workforce</div>
+        <p>Từ sinh viên năm cuối đến lãnh đạo C-level — học cách dùng Gemini, Claude, NotebookLM như đồng nghiệp ngang hàng (peer-AI), không phải công cụ tra cứu.</p>
+        <ul>
+          <li>Agent architecture cho doanh nghiệp</li>
+          <li>AI cho Marketing · Pháp lý · Nhân sự · Vận hành</li>
+          <li>Bộ "đồ chơi" app · bot · template dùng được ngay</li>
+        </ul>
+      </article>
+      <article data-tilt class="prog prog-2 reveal delay-2">
+        <div class="shine"></div>
+        <div class="badge"><span class="pill">02</span> Mini MBA</div>
+        <h3>Mini MBA — Sandbox 2 tỷ</h3>
+        <div class="en-t">Mini MBA — 2 Billion VND Startup Sandbox</div>
+        <p>Quản trị thực chiến dưới áp lực <strong style="color:var(--text)">thời gian thực</strong>. AI cấp 2 tỷ giả lập, mô phỏng kịch bản thị trường + đối thủ. Va chạm thật, mất tiền giả.</p>
+        <ul>
+          <li>Phân bổ vốn ảo: tài chính · sản xuất · nhân sự · marketing</li>
+          <li>Mô phỏng kịch bản thị trường + đối thủ thời gian thực</li>
+          <li>Ra quyết định dưới áp lực — không có nút Undo</li>
+        </ul>
+      </article>
+      <article data-tilt class="prog prog-3 reveal delay-3">
+        <div class="shine"></div>
+        <div class="badge"><span class="pill">03</span> Tài chính Toàn cầu</div>
+        <h3>Tài chính Toàn cầu &amp; Vốn xuyên biên giới</h3>
+        <div class="en-t">Global Finance &amp; Cross-Border Capital</div>
+        <p>Vốn không có quốc tịch. Học cách huy động, cấu trúc và phòng vệ vốn ở quy mô khu vực — từ M&amp;A, SPV, trái phiếu xanh đến Crypto/RWA tokenization trong sandbox pháp lý Việt Nam.</p>
+        <ul>
+          <li>Cấu trúc SPV · Firewall Co. · Quỹ ngoại</li>
+          <li>Crypto/RWA tokenization — sandbox NQ 05/2025</li>
+          <li>M&amp;A cross-border + due-diligence thực chiến</li>
+        </ul>
+      </article>
+      <article data-tilt class="prog prog-4 reveal delay-4">
+        <div class="shine"></div>
+        <div class="badge"><span class="pill">04</span> Chuỗi Cung ứng Toàn cầu</div>
+        <h3>Chuỗi Cung ứng &amp; Thương mại Quốc tế</h3>
+        <div class="en-t">Global Supply Chain &amp; International Trade</div>
+        <p>Việt Nam là mắt xích không thể thay thế trong dòng chảy toàn cầu. Học cách đọc bản đồ thương mại, đa dạng hoá nguồn và biến lợi thế địa chính trị thành đòn bẩy kinh doanh.</p>
+        <ul>
+          <li>Bản đồ tuyến thương mại: TQ · Mỹ · EU · ASEAN</li>
+          <li>Đa dạng hoá nguồn — giảm phụ thuộc đơn quốc gia</li>
+          <li>Case thực chiến XK 1.400 tỷ + logistics thông minh</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES DOUBLE-ROW MARQUEE -->
+<section class="courses" id="courses">
+  <div class="head">
+    <div>
+      <span class="kicker"><span class="dot"></span>KHÓA NGẮN HẠN · SHORT COURSES</span>
+      <h2>Khóa thực chiến — 1 ngày đến 8 tuần</h2>
+      <p class="sub">Mười khóa ngắn hạn được thiết kế quanh các bài toán doanh nhân Việt đang gặp ngay tuần này. Học xong, dùng được ngay thứ Hai.</p>
+    </div>
+    <div class="hint">2 HÀNG · 2 CHIỀU · HOVER PAUSE</div>
+  </div>
+
+  <div class="row-fade">
+    <div class="crow">
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 01</span><span class="dur">3 NGÀY</span></div><h4>AI Agent Architecture cho Doanh nghiệp</h4><p class="tagline">Build agents, not just prompts. Triển khai 5-10 agent end-to-end.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard magenta"><div class="bar"></div><div class="top"><span class="cat">MBA · 02</span><span class="dur">8 TUẦN</span></div><h4>Mini MBA — Sandbox 2 tỷ giả lập</h4><p class="tagline">Va chạm thật với 2 tỷ ảo. Mô phỏng thị trường + đối thủ thời gian thực.</p><div class="lv">FLAGSHIP · CORE</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 03</span><span class="dur">5 NGÀY</span></div><h4>Crypto / RWA Tokenization Việt Nam</h4><p class="tagline">Sandbox NQ 05/2025 + Luật Công nghiệp Công nghệ Số. Pilot &lt; 1 tỷ.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard purple"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 04</span><span class="dur">2 TUẦN</span></div><h4>Cross-border M&amp;A Practice</h4><p class="tagline">Cấu trúc SPV · Firewall Co. · due diligence trên 3 deal mock.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">TRADE · 05</span><span class="dur">3 NGÀY</span></div><h4>Supply Chain Mapping toàn cầu</h4><p class="tagline">Đa dạng nguồn TQ · Mỹ · EU · ASEAN. Đọc rủi ro địa chính trị.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+      <!-- copy -->
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 01</span><span class="dur">3 NGÀY</span></div><h4>AI Agent Architecture cho Doanh nghiệp</h4><p class="tagline">Build agents, not just prompts. Triển khai 5-10 agent end-to-end.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard magenta"><div class="bar"></div><div class="top"><span class="cat">MBA · 02</span><span class="dur">8 TUẦN</span></div><h4>Mini MBA — Sandbox 2 tỷ giả lập</h4><p class="tagline">Va chạm thật với 2 tỷ ảo. Mô phỏng thị trường + đối thủ thời gian thực.</p><div class="lv">FLAGSHIP · CORE</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 03</span><span class="dur">5 NGÀY</span></div><h4>Crypto / RWA Tokenization Việt Nam</h4><p class="tagline">Sandbox NQ 05/2025 + Luật Công nghiệp Công nghệ Số. Pilot &lt; 1 tỷ.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard purple"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 04</span><span class="dur">2 TUẦN</span></div><h4>Cross-border M&amp;A Practice</h4><p class="tagline">Cấu trúc SPV · Firewall Co. · due diligence trên 3 deal mock.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">TRADE · 05</span><span class="dur">3 NGÀY</span></div><h4>Supply Chain Mapping toàn cầu</h4><p class="tagline">Đa dạng nguồn TQ · Mỹ · EU · ASEAN. Đọc rủi ro địa chính trị.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+    </div>
+
+    <div class="crow reverse">
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 06</span><span class="dur">2 NGÀY</span></div><h4>AI cho Marketing &amp; Sales</h4><p class="tagline">Gemini · Claude · NotebookLM cho funnel + CRM. Output: 10 automation chạy ngay.</p><div class="lv">CƠ BẢN · ESSENTIAL</div></div>
+      <div class="ccard magenta"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 07</span><span class="dur">5 NGÀY</span></div><h4>Cấu trúc SPV &amp; Quỹ Ngoại</h4><p class="tagline">SPV · Cayman · Singapore · BVI — chọn đúng pháp lý.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard purple"><div class="bar"></div><div class="top"><span class="cat">STRATEGY · 08</span><span class="dur">3 NGÀY</span></div><h4>Geopolitical Reading cho CEOs</h4><p class="tagline">Đọc tín hiệu Mỹ-Trung-EU. Mô phỏng 4 kịch bản 12 tháng tới.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 09</span><span class="dur">4 NGÀY</span></div><h4>Vốn Xanh &amp; ESG cho doanh nghiệp Việt</h4><p class="tagline">Green Bond · ESG reporting · CBAM EU. Tiếp cận Quỹ ngoại $50M+.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 10</span><span class="dur">1 NGÀY</span></div><h4>Prompt Engineering cho Lãnh đạo</h4><p class="tagline">Anti-persona framework (Wharton 2025). Task instructions &gt; "you are an expert".</p><div class="lv">CƠ BẢN · ESSENTIAL</div></div>
+      <!-- copy -->
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 06</span><span class="dur">2 NGÀY</span></div><h4>AI cho Marketing &amp; Sales</h4><p class="tagline">Gemini · Claude · NotebookLM cho funnel + CRM. Output: 10 automation chạy ngay.</p><div class="lv">CƠ BẢN · ESSENTIAL</div></div>
+      <div class="ccard magenta"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 07</span><span class="dur">5 NGÀY</span></div><h4>Cấu trúc SPV &amp; Quỹ Ngoại</h4><p class="tagline">SPV · Cayman · Singapore · BVI — chọn đúng pháp lý.</p><div class="lv">CHUYÊN SÂU · ADVANCED</div></div>
+      <div class="ccard purple"><div class="bar"></div><div class="top"><span class="cat">STRATEGY · 08</span><span class="dur">3 NGÀY</span></div><h4>Geopolitical Reading cho CEOs</h4><p class="tagline">Đọc tín hiệu Mỹ-Trung-EU. Mô phỏng 4 kịch bản 12 tháng tới.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+      <div class="ccard gold"><div class="bar"></div><div class="top"><span class="cat">FINANCE · 09</span><span class="dur">4 NGÀY</span></div><h4>Vốn Xanh &amp; ESG cho doanh nghiệp Việt</h4><p class="tagline">Green Bond · ESG reporting · CBAM EU. Tiếp cận Quỹ ngoại $50M+.</p><div class="lv">NÂNG CAO · INTERMEDIATE</div></div>
+      <div class="ccard"><div class="bar"></div><div class="top"><span class="cat">AI · 10</span><span class="dur">1 NGÀY</span></div><h4>Prompt Engineering cho Lãnh đạo</h4><p class="tagline">Anti-persona framework (Wharton 2025). Task instructions &gt; "you are an expert".</p><div class="lv">CƠ BẢN · ESSENTIAL</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners" id="partners">
+  <div class="container">
+    <div class="reveal">
+      <span class="kicker"><span class="dot"></span>ĐỐI TÁC · STRATEGIC NETWORK</span>
+      <h2 class="section-title">Mạng lưới xuyên<br>biên giới và thế hệ</h2>
+      <p class="section-sub">
+        Hợp tác với đại học hàng đầu, mạng lưới thương mại toàn cầu và khối cơ quan nhà nước — để mỗi chứng chỉ đều có sức nặng trong và ngoài lãnh thổ Việt Nam.
+        <span class="en">Universities, global trade, government — weight at home and abroad.</span>
+      </p>
+    </div>
+    <div class="grid">
+      <div class="partner reveal delay-1"><div class="tag">Đại học · University</div><h4>Đại học Hoa Sen</h4><div class="meta">Đối tác hạt nhân — sau đại học &amp; vườn ươm khởi nghiệp.<span class="en">HSU · core partner.</span></div></div>
+      <div class="partner reveal delay-2"><div class="tag">Mạng lưới · Network</div><h4>VGA — Phòng Thương mại Toàn cầu</h4><div class="meta">525 thành phố · 195 quốc gia.<span class="en">Vietnam Global Association.</span></div></div>
+      <div class="partner reveal delay-3"><div class="tag">Quốc tế · International</div><h4>ĐH Bắc Kinh &amp; Giao thông</h4><div class="meta">Liên kết đào tạo &amp; chứng chỉ chung.<span class="en">Peking &amp; Jiao Tong Universities.</span></div></div>
+      <div class="partner reveal delay-4"><div class="tag">Học thuật · Faculty</div><h4>20+ Tiến sĩ &amp; Thạc sĩ</h4><div class="meta">Giáo sư từ MIT, Stanford, ĐH Sư phạm TP.HCM.<span class="en">MIT, Stanford, HCMUE faculty.</span></div></div>
+      <div class="partner reveal delay-1"><div class="tag">Thực chiến · Industry</div><h4>Lãnh đạo C-level</h4><div class="meta">CEO, CTO, CFO từ các tập đoàn lớn dạy chuyên đề thực tế.<span class="en">C-level executives.</span></div></div>
+      <div class="partner reveal delay-2"><div class="tag">Chính phủ · Government</div><h4>Khối nhà nước</h4><div class="meta">Đào tạo chuyển đổi số cấp phường/xã &amp; cán bộ Bộ Xây dựng.<span class="en">Digital transformation for govt.</span></div></div>
+      <div class="partner reveal delay-3"><div class="tag">Hệ sinh thái · Ecosystem</div><h4>VP Holding — Hệ sinh thái đa ngành</h4><div class="meta">BĐS · Tài chính · AI · Thương mại · Nông nghiệp xuất khẩu.<span class="en">Multi-sector arena.</span></div></div>
+      <div class="partner reveal delay-4"><div class="tag">Sandbox · Lab</div><h4>Viện AI &amp; 300 Agents</h4><div class="meta">Hạ tầng AI nội bộ của VPH — học viên thực hành trên hệ thống thật.<span class="en">Production AI infrastructure.</span></div></div>
+    </div>
+  </div>
+
+  <!-- LOGO MARQUEE -->
+  <div class="lmq">
+    <div class="lmq-label">MẠNG LƯỚI ĐỐI TÁC · PARTNER NETWORK</div>
+    <div class="lmq-track">
+      <div class="ltile c-cyan"><div class="name">Hoa Sen Univ.</div><div class="sub">HSU · Vietnam · Core Partner</div></div>
+      <div class="ltile c-gold"><div class="name">VGA</div><div class="sub">Global Chamber · 525 cities</div></div>
+      <div class="ltile c-magenta"><div class="name">Peking University</div><div class="sub">北京大学 · Joint Degree</div></div>
+      <div class="ltile c-purple"><div class="name">Jiao Tong Univ.</div><div class="sub">上海交通大学 · MBA</div></div>
+      <div class="ltile c-cyan"><div class="name">M·I·T</div><div class="sub">Faculty Advisors · USA</div></div>
+      <div class="ltile c-gold"><div class="name">Stanford</div><div class="sub">GSB · Faculty Council</div></div>
+      <div class="ltile c-magenta"><div class="name">HCMUE</div><div class="sub">ĐH Sư phạm TP.HCM</div></div>
+      <div class="ltile c-purple"><div class="name">Viện AI · VPH</div><div class="sub">300 Agents · Production</div></div>
+      <div class="ltile c-cyan"><div class="name">Bộ Xây dựng</div><div class="sub">Ministry · Digital Transform</div></div>
+      <div class="ltile c-gold"><div class="name">C-level Council</div><div class="sub">20+ CEOs · CTOs · CFOs</div></div>
+      <!-- copy -->
+      <div class="ltile c-cyan"><div class="name">Hoa Sen Univ.</div><div class="sub">HSU · Vietnam · Core Partner</div></div>
+      <div class="ltile c-gold"><div class="name">VGA</div><div class="sub">Global Chamber · 525 cities</div></div>
+      <div class="ltile c-magenta"><div class="name">Peking University</div><div class="sub">北京大学 · Joint Degree</div></div>
+      <div class="ltile c-purple"><div class="name">Jiao Tong Univ.</div><div class="sub">上海交通大学 · MBA</div></div>
+      <div class="ltile c-cyan"><div class="name">M·I·T</div><div class="sub">Faculty Advisors · USA</div></div>
+      <div class="ltile c-gold"><div class="name">Stanford</div><div class="sub">GSB · Faculty Council</div></div>
+      <div class="ltile c-magenta"><div class="name">HCMUE</div><div class="sub">ĐH Sư phạm TP.HCM</div></div>
+      <div class="ltile c-purple"><div class="name">Viện AI · VPH</div><div class="sub">300 Agents · Production</div></div>
+      <div class="ltile c-cyan"><div class="name">Bộ Xây dựng</div><div class="sub">Ministry · Digital Transform</div></div>
+      <div class="ltile c-gold"><div class="name">C-level Council</div><div class="sub">20+ CEOs · CTOs · CFOs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / FORM -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-wrap reveal">
+      <div class="cta-grid">
+        <div class="left">
+          <span class="kicker"><span class="dot"></span>BẮT ĐẦU · GET STARTED</span>
+          <h2>Bước đầu tiên<br>thường là bước khó nhất.</h2>
+          <p>Để lại thông tin — đội ngũ Viện sẽ liên hệ tư vấn lộ trình phù hợp với bạn trong 24h.
+            <span class="en">Leave your details — our team will reach out within 24h.</span>
+          </p>
+          <ul class="contact-list">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" stroke="currentColor"/><path d="M4 4l8 8 8-8" stroke="currentColor"/></svg></span>hello@vpholding.vn</li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.91.34 1.81.65 2.67a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.41-1.42a2 2 0 0 1 2.11-.45c.86.31 1.76.53 2.67.65A2 2 0 0 1 22 16.92z" stroke="currentColor"/></svg></span>Hotline: 1900 — VPH (chờ cấp)</li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor"/><circle cx="12" cy="10" r="3" stroke="currentColor"/></svg></span>TP. Hồ Chí Minh · Việt Nam</li>
+          </ul>
         </div>
-    </nav>
+        <form class="signup" id="signupForm" novalidate>
+          <div class="field"><label for="f-name">Họ &amp; tên · Full name</label><input type="text" id="f-name" name="name" required placeholder="Nguyễn Văn A"></div>
+          <div class="field-row">
+            <div class="field"><label for="f-email">Email</label><input type="email" id="f-email" name="email" required placeholder="ban@example.com"></div>
+            <div class="field"><label for="f-phone">Điện thoại · Phone</label><input type="tel" id="f-phone" name="phone" placeholder="+84 ..."></div>
+          </div>
+          <div class="field">
+            <label for="f-prog">Chương trình quan tâm · Interest</label>
+            <select id="f-prog" name="program" required>
+              <option value="">— Chọn chương trình —</option>
+              <option value="ai">AI cho Doanh nhân</option>
+              <option value="mba">Mini MBA — Sandbox 2 tỷ</option>
+              <option value="finance">Tài chính Toàn cầu &amp; Vốn xuyên biên giới</option>
+              <option value="supply">Chuỗi Cung ứng &amp; Thương mại Quốc tế</option>
+              <option value="other">Tư vấn tổng thể</option>
+            </select>
+          </div>
+          <div class="field"><label for="f-msg">Lời nhắn · Message (tuỳ chọn)</label><textarea id="f-msg" name="message" placeholder="Bạn đang ở đâu trên hành trình của mình?"></textarea></div>
+          <div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+              Bắt đầu hành trình
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+            <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ============ HERO SLIDER ============ -->
-    <section class="hero" id="hero">
-        <canvas id="particle-canvas" style="position:absolute;inset:0;z-index:5;pointer-events:none;"></canvas>
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div class="brand-block">
+      <a href="#top" class="brand"><span class="brand-mark"></span><span class="brand-text"><span class="vi">Viện Đào tạo Doanh nhân</span><span class="en">Entrepreneur Institute · VPH</span></span></a>
+      <p>Một thành viên của VP Holding — kiến tạo thế hệ doanh nhân Việt làm chủ vốn, công nghệ và thị trường toàn cầu.<br><br><span style="font-family:var(--ff-en); font-size:11px; color:var(--dim); letter-spacing:0.1em;">VP HOLDING · CAPITAL · TECH · CROSS-BORDER</span></p>
+    </div>
+    <div><h5>Chương trình</h5><ul><li><a href="#programs">AI cho Doanh nhân</a></li><li><a href="#programs">Mini MBA — Sandbox 2 tỷ</a></li><li><a href="#programs">Tài chính Toàn cầu</a></li><li><a href="#programs">Chuỗi Cung ứng Quốc tế</a></li></ul></div>
+    <div><h5>Viện</h5><ul><li><a href="#mission">Sứ mệnh</a></li><li><a href="#courses">Khóa ngắn hạn</a></li><li><a href="#partners">Đối tác</a></li><li><a href="#contact">Liên hệ</a></li></ul></div>
+    <div><h5>Hệ sinh thái</h5><ul><li><a href="#">VP Holding</a></li><li><a href="#">Viện AI &amp; 300 Agents</a></li><li><a href="#">Tài chính &amp; M&amp;A</a></li><li><a href="#">Nông nghiệp Xuất khẩu</a></li></ul></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 VP Holding — Viện Đào tạo &amp; Phát triển Doanh nhân Việt Nam.</span>
+    <span class="en">DESIGNED FOR THE NEXT CENTURY · MADE IN VIETNAM</span>
+  </div>
+</footer>
 
-        <div class="hero-slide active">
-            <div class="hero-slide-bg" style="background-image:url('assets/images/slides/hero-1.png')"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-badge"><i class="fa-solid fa-star"></i> SINCE 2015</div>
-                <h1>Kiến Tạo Vị Thế<br><span class="gold">Doanh Nhân Việt</span><br>Trong Kỷ Nguyên AI</h1>
-                <p>Làm chủ công nghệ AI, ESG & Chuyển đổi số — Nâng tầm năng lực lãnh đạo, tối ưu vận hành, bứt phá
-                    doanh thu trong thời đại biến động.</p>
-                <div class="hero-buttons">
-                    <a href="#trends" class="btn-primary">Khám Phá Xu Hướng</a>
-                    <a href="#courses" class="btn-outline">Xem Khóa Học</a>
-                </div>
-            </div>
-        </div>
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+(function(){
+  'use strict';
 
-        <div class="hero-slide">
-            <div class="hero-slide-bg" style="background-image:url('assets/images/slides/hero-2.png')"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-badge"><i class="fa-solid fa-microchip"></i> AI & DIGITAL TRANSFORMATION</div>
-                <h1>87% CEO Toàn Cầu<br>Đặt <span class="gold">AI & Data</span><br>Là Ưu Tiên Số 1</h1>
-                <p>Doanh nghiệp không ứng dụng AI sẽ mất 40% lợi thế cạnh tranh trong 3 năm tới. Bạn đã sẵn sàng?</p>
-                <div class="hero-buttons">
-                    <a href="#courses" class="btn-primary">Đăng Ký Ngay</a>
-                    <a href="#contact" class="btn-outline">Tư Vấn 1:1</a>
-                </div>
-            </div>
-        </div>
+  var hasGSAP  = typeof gsap   !== 'undefined';
+  var hasST    = hasGSAP && typeof ScrollTrigger !== 'undefined';
+  var hasLenis = typeof Lenis  !== 'undefined';
+  if (hasST) gsap.registerPlugin(ScrollTrigger);
 
-        <div class="hero-slide">
-            <div class="hero-slide-bg" style="background-image:url('assets/images/slides/hero-3.png')"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-badge"><i class="fa-solid fa-leaf"></i> ESG · SDGs · NET ZERO</div>
-                <h1>CBAM Có Hiệu Lực<br><span class="gold">Doanh Nghiệp Việt</span><br>Cần Hành Động Ngay</h1>
-                <p>EU áp thuế Carbon biên giới. 70% doanh nghiệp xuất khẩu Việt Nam chưa sẵn sàng ứng phó. Đây là cơ hội
-                    lớn cho người dẫn đầu.</p>
-                <div class="hero-buttons">
-                    <a href="#trends" class="btn-primary">Tìm Hiểu CBAM</a>
-                    <a href="#contact" class="btn-outline">Liên Hệ Hợp Tác</a>
-                </div>
-            </div>
-        </div>
+  // -----------------------------------------------------------
+  // 1. LETTER-SPLIT on [data-split] + reveal stagger
+  // -----------------------------------------------------------
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var text = el.textContent;
+    el.textContent = '';
+    var i = 0;
+    Array.prototype.forEach.call(text, function(ch){
+      var span = document.createElement('span');
+      span.className = 'char';
+      span.style.display = 'inline-block';
+      span.style.transform = 'translateY(110%)';
+      span.style.opacity = '0';
+      span.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1) ' + (i*0.04) + 's, opacity 0.9s ease ' + (i*0.04) + 's';
+      span.textContent = ch === ' ' ? ' ' : ch;
+      el.appendChild(span);
+      i++;
+    });
+  });
+  // Trigger reveal on next frame
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      document.querySelectorAll('[data-split] .char').forEach(function(c){
+        c.style.transform = 'translateY(0)';
+        c.style.opacity = '1';
+      });
+    });
+  });
 
-        <div class="slider-dots">
-            <button class="slider-dot active" data-slide="0"></button>
-            <button class="slider-dot" data-slide="1"></button>
-            <button class="slider-dot" data-slide="2"></button>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 2. LENIS smooth scroll
+  // -----------------------------------------------------------
+  var lenis = null;
+  if (hasLenis){
+    try {
+      lenis = new Lenis({ duration: 1.15, easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10*t)); } });
+      function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if (hasST) lenis.on('scroll', ScrollTrigger.update);
+    } catch(e){}
+  }
 
-    <!-- ============ STATS BAR ============ -->
-    <section class="stats-bar">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number" data-target="250" data-suffix="+">0</div>
-                <div class="stat-label">Doanh nghiệp đã đào tạo</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="15" data-suffix="+">0</div>
-                <div class="stat-label">Chuyên gia đầu ngành</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="20" data-suffix="+">0</div>
-                <div class="stat-label">Chương trình đào tạo</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-target="10" data-suffix="+">0</div>
-                <div class="stat-label">Năm kinh nghiệm</div>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 3. GSAP reveals (fallback to IntersectionObserver)
+  // -----------------------------------------------------------
+  if (hasGSAP && hasST){
+    document.querySelectorAll('.reveal').forEach(function(el){
+      gsap.fromTo(el, { opacity:0, y:36 }, {
+        opacity:1, y:0, duration:0.95, ease:'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+    // Hero parallax (gentle)
+    gsap.to('.hero-inner', {
+      yPercent: -6, opacity: 0.95, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+    // Number counters
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: 1.6, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+        onUpdate: function(){ el.textContent = Math.round(obj.v) + suffix; }
+      });
+    });
+  } else {
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    }
+  }
 
-    <!-- ============ ABOUT — Ngắn gọn, ấn tượng ============ -->
-    <section class="about section-padding" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-image animate-on-scroll">
-                    <img src="assets/images/about.jpg" alt="VietD — Đào tạo thực chiến">
-                    <div class="accent-box">
-                        <div class="number">2015</div>
-                        <div class="label">Thành lập</div>
-                    </div>
-                </div>
-                <div class="animate-on-scroll">
-                    <span class="section-label">Về VietD</span>
-                    <h2 class="section-title">Đưa Công Nghệ & Quản Trị<br><span class="gold">Thực Chiến</span> Vào Doanh
-                        Nghiệp Việt</h2>
-                    <div class="gold-bar"></div>
-                    <p>VietD là tổ chức tiên phong đưa <strong>công nghệ AI</strong> và <strong>quản trị thực
-                            chiến</strong> vào doanh nghiệp Việt. Chúng tôi thiết kế chương trình đào tạo nội bộ và bàn
-                        giao công cụ áp dụng ngay — giúp nâng hiệu quả vận hành, biến công nghệ thành lợi thế cạnh tranh
-                        cốt lõi.</p>
-                    <p
-                        style="background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--gold-light);padding:20px 24px;border-radius:10px;font-style:italic;font-weight:600;margin-top:16px;border-left:4px solid var(--gold);">
-                        "Làm chủ công nghệ, trọn vẹn thời gian. Để AI gánh vác việc bộn bề, trả lại cho bạn những phút
-                        giây giá trị và sự cân bằng trong cuộc sống."
-                    </p>
-                    <div class="about-values">
-                        <div class="about-value">
-                            <i class="fa-solid fa-database"></i>
-                            <h4>Data-Driven</h4>
-                            <p>Ra quyết định bằng dữ liệu thực tế</p>
-                        </div>
-                        <div class="about-value">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                            <h4>Tech for Wellness</h4>
-                            <p>Công nghệ phục vụ con người</p>
-                        </div>
-                        <div class="about-value">
-                            <i class="fa-solid fa-handshake"></i>
-                            <h4>Practicality</h4>
-                            <p>Thực chiến, chuyển giao ngay</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 4. SCROLL PROGRESS BAR
+  // -----------------------------------------------------------
+  var prog = document.getElementById('scrollProg');
+  function updateProg(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max > 0 ? (window.scrollY / max) : 0;
+    prog.style.width = (pct * 100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', updateProg, { passive: true });
+  updateProg();
 
-    <!-- ============ TRENDS & OPPORTUNITIES — Xu hướng, điểm chạm ============ -->
-    <section class="services section-padding" id="trends"
-        style="background:var(--navy);position:relative;overflow:hidden;">
-        <div
-            style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.12) 0%,transparent 70%);">
-        </div>
-        <div
-            style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(30,55,109,0.3) 0%,transparent 70%);">
-        </div>
-        <div class="container" style="position:relative;z-index:2;">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label" style="color:var(--gold-light);">Tại sao bây giờ?</span>
-                <h2 class="section-title" style="color:var(--white);">Thế Giới Đang Thay Đổi.<br><span class="gold">Bạn
-                        Đã Sẵn Sàng?</span></h2>
-                <div class="gold-bar" style="background:var(--gold-light);"></div>
-                <p class="section-desc" style="color:rgba(255,255,255,0.6);">Những con số không nói dối — Doanh nghiệp
-                    nào nắm bắt xu hướng sẽ dẫn đầu thị trường.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card animate-on-scroll"
-                    style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);backdrop-filter:blur(10px);">
-                    <div class="service-icon" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));">
-                        <i class="fa-solid fa-robot" style="color:var(--navy);"></i></div>
-                    <h3 style="color:var(--white);">AI & Generative AI</h3>
-                    <p style="color:var(--gold-light);font-weight:700;font-size:1.6rem;margin-bottom:4px;">78%</p>
-                    <p style="color:rgba(255,255,255,0.6);">doanh nghiệp toàn cầu đã hoặc đang triển khai AI. <strong
-                            style="color:var(--gold-light);">ChatGPT, Gemini, Copilot</strong> thay đổi cách làm việc
-                        mãi mãi.</p>
-                </div>
-                <div class="service-card animate-on-scroll"
-                    style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);backdrop-filter:blur(10px);">
-                    <div class="service-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);"><i
-                            class="fa-solid fa-leaf" style="color:white;"></i></div>
-                    <h3 style="color:var(--white);">ESG · CBAM · Net Zero</h3>
-                    <p style="color:#4ade80;font-weight:700;font-size:1.6rem;margin-bottom:4px;">2026</p>
-                    <p style="color:rgba(255,255,255,0.6);">EU áp thuế Carbon biên giới (CBAM) chính thức. <strong
-                            style="color:#4ade80;">SDGs, GRI, ISO 14064</strong> trở thành bắt buộc cho chuỗi cung ứng
-                        toàn cầu.</p>
-                </div>
-                <div class="service-card animate-on-scroll"
-                    style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);backdrop-filter:blur(10px);">
-                    <div class="service-icon"
-                        style="background:linear-gradient(135deg,var(--navy-light),var(--navy-mid));"><i
-                            class="fa-solid fa-chart-line" style="color:var(--gold-light);"></i></div>
-                    <h3 style="color:var(--white);">Digital Transformation</h3>
-                    <p style="color:var(--blue-light);font-weight:700;font-size:1.6rem;margin-bottom:4px;">40%</p>
-                    <p style="color:rgba(255,255,255,0.6);">lợi thế cạnh tranh sẽ mất nếu không chuyển đổi số. <strong
-                            style="color:var(--gold-light);">ERP, CRM, Cloud, Big Data</strong> là nền tảng sống còn.
-                    </p>
-                </div>
-            </div>
+  // -----------------------------------------------------------
+  // 5. NAV scrolled state
+  // -----------------------------------------------------------
+  var nav = document.getElementById('nav');
+  function navState(){
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', navState, { passive: true });
+  navState();
 
-            <!-- Keywords cloud -->
-            <div class="animate-on-scroll"
-                style="text-align:center;margin-top:48px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Artificial
-                    Intelligence</span>
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">ChatGPT
-                    · Gemini</span>
-                <span
-                    style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">ESG
-                    · SDGs</span>
-                <span
-                    style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Net
-                    Zero · CBAM</span>
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Digital
-                    Transformation</span>
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Blockchain
-                    · FinTech</span>
-                <span
-                    style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Carbon
-                    Credit</span>
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">M&A
-                    · IPO</span>
-                <span
-                    style="background:rgba(184,134,11,0.15);border:1px solid rgba(184,134,11,0.3);color:var(--gold-light);padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Lean
-                    · Kaizen · 5S</span>
-                <span
-                    style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:8px 18px;border-radius:50px;font-size:0.78rem;font-family:'JetBrains Mono',monospace;">GRI
-                    · ISO 14064</span>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 6. CUSTOM CURSOR
+  // -----------------------------------------------------------
+  var canCur = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canCur){
+    var cd = document.getElementById('curDot');
+    var cr = document.getElementById('curRing');
+    document.body.classList.add('has-cur');
+    var tx=0, ty=0, dx=0, dy=0, rx=0, ry=0;
+    window.addEventListener('mousemove', function(e){ tx=e.clientX; ty=e.clientY; }, { passive: true });
+    (function loop(){
+      dx += (tx - dx) * 0.45; dy += (ty - dy) * 0.45;
+      rx += (tx - rx) * 0.18; ry += (ty - ry) * 0.18;
+      cd.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translate(-50%,-50%)';
+      cr.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.prog,.partner,.pillar,.ccard,.ltile,input,select,textarea').forEach(function(el){
+      el.addEventListener('mouseenter', function(){ cd.classList.add('hover'); cr.classList.add('hover'); });
+      el.addEventListener('mouseleave', function(){ cd.classList.remove('hover'); cr.classList.remove('hover'); });
+    });
+  }
 
-    <!-- ============ FUTURE VISION — Hình dung tương lai ============ -->
-    <section class="section-padding" id="future" style="background:var(--white);">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Hình dung tương lai</span>
-                <h2 class="section-title">Sau Khi Đồng Hành Cùng VietD,<br><span class="gold">Bạn Sẽ Trở Thành...</span>
-                </h2>
-                <div class="gold-bar"></div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" class="future-grid">
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:36px 20px;border-radius:16px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div
-                        style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-light));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;color:var(--gold-light);">
-                        <i class="fa-solid fa-crown"></i>
-                    </div>
-                    <h4 style="font-size:1rem;margin-bottom:8px;">Nhà Lãnh Đạo Số</h4>
-                    <p style="font-size:0.82rem;color:var(--gray-500);">Ra quyết định nhanh chóng và chính xác với AI
-                        Dashboard, CEO Cockpit, Data Analytics real-time.</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:36px 20px;border-radius:16px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div
-                        style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;color:white;">
-                        <i class="fa-solid fa-globe"></i>
-                    </div>
-                    <h4 style="font-size:1rem;margin-bottom:8px;">Doanh Nhân Bền Vững</h4>
-                    <p style="font-size:0.82rem;color:var(--gray-500);">Tuân thủ CBAM, ESG, SDGs. Tham gia thị trường
-                        tín chỉ Carbon. Đón đầu xu hướng toàn cầu.</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:36px 20px;border-radius:16px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div
-                        style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;color:var(--navy);">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                    <h4 style="font-size:1rem;margin-bottom:8px;">CEO Tối Ưu Vận Hành</h4>
-                    <p style="font-size:0.82rem;color:var(--gray-500);">Giảm 60% thời gian vận hành nhờ tự động hoá. Tập
-                        trung vào chiến lược và kiến tạo giá trị lớn.</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:36px 20px;border-radius:16px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div
-                        style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy-mid),var(--navy));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;color:var(--gold-light);">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </div>
-                    <h4 style="font-size:1rem;margin-bottom:8px;">Người Cân Bằng Cuộc Sống</h4>
-                    <p style="font-size:0.82rem;color:var(--gray-500);">Rời văn phòng lúc 5:30 PM. Để AI gánh vác công
-                        việc lặp lại. Sống trọn vẹn Thân – Tâm – Trí.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 7. 3D TILT on [data-tilt]
+  // -----------------------------------------------------------
+  document.querySelectorAll('[data-tilt]').forEach(function(card){
+    var shine = card.querySelector('.shine');
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width;
+      var y = (e.clientY - r.top) / r.height;
+      var rx = (y - 0.5) * -8;
+      var ry = (x - 0.5) * 10;
+      card.style.transform = 'perspective(1200px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-6px)';
+      if (shine){
+        shine.style.setProperty('--mx', (x*100).toFixed(1) + '%');
+        shine.style.setProperty('--my', (y*100).toFixed(1) + '%');
+      }
+    });
+    card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+  });
 
-    <!-- ============ COURSES ============ -->
-    <section class="courses section-padding" id="courses">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Chương trình đào tạo</span>
-                <h2 class="section-title">Khóa Học <span class="gold">Nổi Bật</span></h2>
-                <div class="gold-bar"></div>
-                <p class="section-desc">Thiết kế bám sát thực tiễn — Học viên ứng dụng được ngay vào doanh nghiệp từ
-                    buổi đầu tiên.</p>
-            </div>
-            <div class="courses-grid">
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80')">
-                        <span class="course-badge">Hot</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>AI cho Người Đi Làm & Doanh Nghiệp SME</h3>
-                        <p>ChatGPT, Gemini, Copilot ứng dụng thực chiến: tự động hoá, Marketing AI, quản trị dữ liệu,
-                            tối ưu quy trình kinh doanh.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 16 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> Mọi cấp độ</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80')">
-                        <span class="course-badge">Premium</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>Mini MBA Thực Chiến — The Augmented CEO</h3>
-                        <p>Chương trình đào tạo CEO toàn diện: chiến lược, tài chính, M&A, IPO, chuyển đổi số, lãnh đạo
-                            thời đại AI.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 120 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> CEO/Founders</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80')">
-                        <span class="course-badge">New</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>CEO Data-Driven — Ra Quyết Định Bằng Dữ Liệu</h3>
-                        <p>CEO Cockpit, Dashboard điều hành, KPI real-time, Big Data Analytics. Nắm "sức khoẻ" doanh
-                            nghiệp qua con số.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 24 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> Quản lý+</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600&q=80')">
-                        <span class="course-badge">Inhouse</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>Sales B2B & CRM Thời Đại Số</h3>
-                        <p>Bán hàng B2B hiện đại, Social Selling, CRM automation, tối ưu pipeline, chốt deal bằng AI
-                            insights.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 16 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> Sales Team</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=80')">
-                        <span class="course-badge">Trending</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>Content Creator 2H — Sáng Tạo Nội Dung Bằng AI</h3>
-                        <p>Sử dụng AI để lên lịch sáng tạo nội dung đa kênh cho cả tháng chỉ trong 2 giờ, từ ý tưởng đến
-                            hình ảnh và kịch bản video.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 2 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> Marketing</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card animate-on-scroll">
-                    <div class="course-img"
-                        style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80')">
-                        <span class="course-badge">ESG</span>
-                    </div>
-                    <div class="course-body">
-                        <h3>ESG · CBAM · Kiểm Kê Khí Nhà Kính</h3>
-                        <p>Kiểm kê GHG (ISO 14064), báo cáo CBAM, tín chỉ Carbon, lộ trình Net Zero, thực hành GRI cho
-                            doanh nghiệp xuất khẩu.</p>
-                        <div class="course-meta">
-                            <span><i class="fa-regular fa-clock"></i> 16 giờ</span>
-                            <span><i class="fa-regular fa-user"></i> Quản lý+</span>
-                            <span class="price">Liên hệ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 8. MAGNETIC primary buttons
+  // -----------------------------------------------------------
+  document.querySelectorAll('.btn-primary').forEach(function(b){
+    b.addEventListener('mousemove', function(e){
+      var r = b.getBoundingClientRect();
+      var x = e.clientX - r.left - r.width/2;
+      var y = e.clientY - r.top  - r.height/2;
+      b.style.transform = 'translate(' + (x*0.10).toFixed(1) + 'px,' + (y*0.18 - 3).toFixed(1) + 'px)';
+    });
+    b.addEventListener('mouseleave', function(){ b.style.transform = ''; });
+  });
 
-    <!-- ============ TEAM ============ -->
-    <section class="team section-padding" id="team">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Ban Điều Hành</span>
-                <h2 class="section-title">Đội Ngũ <span class="gold">Lãnh Đạo</span></h2>
-                <div class="gold-bar"></div>
-                <p class="section-desc">Với Ban điều hành VietD, thước đo năng lực lãnh đạo không phải là số giờ làm
-                    việc, mà là hiệu quả ra quyết định và sự cân bằng trong cuộc sống.</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-card animate-on-scroll">
-                    <div class="team-avatar"><img src="assets/images/team/avt-bac-hung.jpg"
-                            alt="Ths. Ls Dương Mạnh Hùng"></div>
-                    <h3>Ths. Ls Dương Mạnh Hùng</h3>
-                    <div class="role">Viện trưởng VIETD</div>
-                    <p>Chuyên gia Tư vấn Chiến lược Pháp lý & Quản trị Doanh nghiệp. Chủ tịch HĐTV Công ty Luật CCLaw
-                        (60+ nhân sự).</p>
-                    <div class="team-tags">
-                        <span class="team-tag">MBA & Lawyer</span>
-                        <span class="team-tag">15+ Năm KN</span>
-                        <span class="team-tag">Chiến lược gia</span>
-                    </div>
-                </div>
-                <div class="team-card animate-on-scroll">
-                    <div class="team-avatar"><img src="assets/images/team/avt-vu-ngoc-sy.png" alt="Ông Vũ Ngọc Sỹ">
-                    </div>
-                    <h3>Ông Vũ Ngọc Sỹ</h3>
-                    <div class="role">Viện phó</div>
-                    <p>CTO chiến lược, kiến trúc sư AI & Cloud. Dẫn dắt dự án chuyển đổi số cho Walmart, BestBuy, Bosch,
-                        Uniqlo. Thúc đẩy 50 triệu USD doanh số số hoá.</p>
-                    <div class="team-tags">
-                        <span class="team-tag">Global CTO</span>
-                        <span class="team-tag">AI & Cloud</span>
-                        <span class="team-tag">15+ Năm KN</span>
-                    </div>
-                </div>
-                <div class="team-card animate-on-scroll">
-                    <div class="team-avatar"><img src="assets/images/team/avt-tran-duy-khiem.jpg"
-                            alt="Ông Trần Duy Khiêm"></div>
-                    <h3>Ông Trần Duy Khiêm</h3>
-                    <div class="role">Thành viên Ban Điều Hành</div>
-                    <p>20+ năm quản trị chuỗi cung ứng. Chuyên gia năng suất JPC Nhật Bản. Kinh nghiệm tại P&G,
-                        Gemadept, U&I Logistics.</p>
-                    <div class="team-tags">
-                        <span class="team-tag">Bách Khoa MBA</span>
-                        <span class="team-tag">Japan Productivity</span>
-                        <span class="team-tag">Lean · Kaizen</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 9. MARQUEE hover pause
+  // -----------------------------------------------------------
+  ['.mq-track', '.crow', '.lmq-track'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(el){
+      var parent = el.parentElement;
+      parent.addEventListener('mouseenter', function(){ el.style.animationPlayState = 'paused'; });
+      parent.addEventListener('mouseleave', function(){ el.style.animationPlayState = 'running'; });
+    });
+  });
 
-    <!-- ============ EXPERTS ============ -->
-    <section class="experts section-padding" id="experts">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Đội ngũ chuyên gia</span>
-                <h2 class="section-title">Giảng Viên <span class="gold">Hợp Tác</span></h2>
-                <div class="gold-bar"></div>
-                <p class="section-desc">Chuyên gia đầu ngành từ nhiều lĩnh vực, mang đến kiến thức thực chiến từ các tập
-                    đoàn lớn.</p>
-            </div>
-            <div class="experts-slider">
-                <div class="experts-track">
-                    <div class="expert-slide">
-                        <div class="expert-card animate-on-scroll">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/tran-thanh-tam.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>TS. Trần Thanh Tâm</h4>
-                                <div class="specialty">GHG · Carbon · ESG</div>
-                                <p>Tiến sĩ, đào tạo 250+ DN về kiểm kê khí nhà kính & Net Zero</p>
-                            </div>
-                        </div>
-                        <div class="expert-card animate-on-scroll">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/duong-thuy-dinh.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Dương Thúy Đình</h4>
-                                <div class="specialty">HR Management</div>
-                                <p>Chuyên gia phát triển tổ chức và văn hóa doanh nghiệp</p>
-                            </div>
-                        </div>
-                        <div class="expert-card animate-on-scroll">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/pham-quoc-viet.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Phạm Quốc Việt</h4>
-                                <div class="specialty">Marketing & Branding</div>
-                                <p>Chiến lược thương hiệu số, digital marketing cho SME</p>
-                            </div>
-                        </div>
-                        <div class="expert-card animate-on-scroll">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/le-luong-bao-thang.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Lê Lương Bảo Thắng</h4>
-                                <div class="specialty">Tài chính · M&A</div>
-                                <p>Tư vấn đầu tư, M&A, tái cấu trúc doanh nghiệp</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="expert-slide">
-                        <div class="expert-card">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/duong-quang-duy.png')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Dương Quang Duy</h4>
-                                <div class="specialty">Digital Transformation</div>
-                                <p>Chuyên gia ERP, hệ thống số hoá & tối ưu quy trình</p>
-                            </div>
-                        </div>
-                        <div class="expert-card">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/nguyen-thi-cam-tien.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Nguyễn Thị Cẩm Tiên</h4>
-                                <div class="specialty">L&D · Training</div>
-                                <p>Thiết kế chương trình đào tạo doanh nghiệp</p>
-                            </div>
-                        </div>
-                        <div class="expert-card">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/pham-duc-duy.jpg')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Phạm Đức Duy</h4>
-                                <div class="specialty">Supply Chain · Lean</div>
-                                <p>Lean Six Sigma, tối ưu chuỗi cung ứng & logistics</p>
-                            </div>
-                        </div>
-                        <div class="expert-card">
-                            <div class="expert-photo"
-                                style="background-image:url('assets/images/experts/huynh-my-phuong.png')"></div>
-                            <div class="expert-info">
-                                <h4>ThS. Huỳnh Mỹ Phượng</h4>
-                                <div class="specialty">Kế toán · Tài chính</div>
-                                <p>Kế toán quản trị, thuế & tuân thủ tài chính DN</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="experts-nav">
-                <button class="expert-prev"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="expert-next"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </section>
+  // -----------------------------------------------------------
+  // 10. FORM handling
+  // -----------------------------------------------------------
+  var form = document.getElementById('signupForm');
+  var formMsg = document.getElementById('formMsg');
+  if (form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var d = new FormData(form);
+      var name = (d.get('name') || '').trim();
+      var email = (d.get('email') || '').trim();
+      var program = (d.get('program') || '').trim();
+      if (!name || !email || !program){
+        formMsg.style.color = 'var(--magenta)';
+        formMsg.textContent = 'Vui lòng điền họ tên, email và chương trình quan tâm.';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        formMsg.style.color = 'var(--magenta)';
+        formMsg.textContent = 'Email chưa hợp lệ — vui lòng kiểm tra lại.';
+        return;
+      }
+      formMsg.style.color = 'var(--cyan)';
+      formMsg.textContent = 'Đã ghi nhận. Đội ngũ Viện sẽ liên hệ với bạn trong 24h. Cảm ơn ' + name.split(' ')[0] + '!';
+      form.reset();
+    });
+  }
 
-    <!-- ============ PARTNERS — Đối tác liên kết ============ -->
-    <section class="section-padding" id="partners"
-        style="background:var(--white);border-top:1px solid var(--gray-200);">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Hệ sinh thái đối tác</span>
-                <h2 class="section-title">Đối Tác <span class="gold">Liên Kết & Hợp Tác</span></h2>
-                <div class="gold-bar"></div>
-                <p class="section-desc">VietD tự hào hợp tác cùng các tổ chức, trường đại học và doanh nghiệp hàng đầu
-                    Việt Nam & Quốc tế.</p>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" class="partners-grid">
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-university"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">ĐH Hoa Sen (HSU)</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Hợp tác đào tạo ngắn hạn, cấp chứng chỉ liên kết
-                    </p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-building-columns"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">Bộ Xây Dựng</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Đào tạo AI ứng dụng cho cán bộ ngành xây dựng
-                    </p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-scale-balanced"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">Công ty Luật CCLaw</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Hệ sinh thái pháp lý, tư vấn DN 60+ nhân sự</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-building"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">TPS Holding</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Tập đoàn đa ngành, hạ tầng & không gian đào tạo
-                    </p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-landmark"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">UBND Xã Bình Hưng</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Đào tạo AI cho cán bộ cơ quan nhà nước</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-users"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">Hội DN Tư Nhân VN</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Kết nối mạng lưới doanh nhân toàn quốc</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-industry"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">Các Tập Đoàn Sản Xuất</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">VRG, Vicem, Viglacera, Thép Song Than...</p>
-                </div>
-                <div class="animate-on-scroll"
-                    style="text-align:center;padding:32px 20px;border-radius:12px;border:1px solid var(--gray-200);transition:all 0.4s;background:var(--white);">
-                    <div style="font-size:2.2rem;color:var(--navy);margin-bottom:12px;"><i
-                            class="fa-solid fa-earth-asia"></i></div>
-                    <h4 style="font-size:0.95rem;margin-bottom:4px;">Đối Tác Quốc Tế</h4>
-                    <p style="font-size:0.75rem;color:var(--gray-500);">Nhật Bản (JPC), Hàn Quốc, Úc, Ý, Malaysia</p>
-                </div>
-            </div>
-        </div>
-    </section>
+})();
+</script>
 
-    <!-- ============ CTA ============ -->
-    <section class="cta" id="cta">
-        <div class="container animate-on-scroll">
-            <h2>Đừng Để Doanh Nghiệp<br><span class="gold">Bỏ Lỡ Kỷ Nguyên AI</span></h2>
-            <p>Liên hệ ngay để nhận tư vấn miễn phí<br>về chương trình đào tạo phù hợp cho doanh nghiệp của bạn.</p>
-            <a href="tel:0913355331" class="btn-primary" style="display:inline-block;">
-                <i class="fa-solid fa-phone"></i>&nbsp; Gọi Ngay: 091 335 53 31
-            </a>
-        </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="assets/images/logo.png" alt="VietD Logo"
-                        onerror="this.src='https://placehold.co/200x60/FFFFFF/B8860B?text=VIETD'">
-                    <h4
-                        style="color:var(--white);font-size:1rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">
-                        Viện Đào Tạo & Phát Triển<br>Doanh Nhân Việt Nam</h4>
-                    <p>Điểm tựa tri thức và thịnh vượng cho cộng đồng doanh nghiệp Việt.</p>
-                    <div class="footer-social">
-                        <a href="https://www.facebook.com/VietD.edu.vn" target="_blank" aria-label="Facebook"><i
-                                class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://vietd.edu.vn" target="_blank" aria-label="Website"><i
-                                class="fa-solid fa-globe"></i></a>
-                        <a href="tel:0913355331" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4>Liên Kết</h4>
-                    <ul>
-                        <li><a href="#about">Giới thiệu</a></li>
-                        <li><a href="#trends">Xu hướng</a></li>
-                        <li><a href="#courses">Khóa học</a></li>
-                        <li><a href="#team">Đội ngũ</a></li>
-                        <li><a href="#partners">Đối tác</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Khóa Học</h4>
-                    <ul>
-                        <li><a href="#courses">AI cho Doanh nghiệp</a></li>
-                        <li><a href="#courses">Mini MBA Thực Chiến</a></li>
-                        <li><a href="#courses">CEO Data-Driven</a></li>
-                        <li><a href="#courses">ESG · CBAM · Net Zero</a></li>
-                        <li><a href="#courses">Content Creator 2H</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Liên Hệ</h4>
-                    <ul class="footer-contact">
-                        <li><i class="fa-solid fa-location-dot"></i> Tầng 2, Tòa nhà TPS, 31b Đ. Số 23, Hiệp Bình Chánh,
-                            Thủ Đức, TP.HCM</li>
-                        <li><i class="fa-solid fa-phone"></i> <a href="tel:0913355331"
-                                style="color:rgba(255,255,255,0.6)">091 335 53 31</a></li>
-                        <li><i class="fa-solid fa-user"></i> Trần Duy Khiêm</li>
-                        <li><i class="fa-solid fa-globe"></i> <a href="https://vietd.edu.vn" target="_blank"
-                                style="color:rgba(255,255,255,0.6)">VietD.edu.vn</a></li>
-                        <li><i class="fa-brands fa-facebook"></i> <a href="https://www.facebook.com/VietD.edu.vn"
-                                target="_blank" style="color:rgba(255,255,255,0.6)">facebook.com/VietD.edu.vn</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VIETD Institute — Viện Đào Tạo & Phát Triển Doanh Nhân Việt Nam. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
